@@ -447,6 +447,7 @@ img.ocf-tag {
 .people-img .ppl-img {
   height: 84px;
   width: 84px;
+  border-radius: 100px;
 }
 
 div.people-square3 {
@@ -2235,8 +2236,10 @@ width: 50%;
 }
 
 .ppl-img {
-  height: 200px;
-  width: auto;
+  width: 200px; /* Adjust this value to your desired width */
+  height: 200px; /* Adjust this value to your desired height */
+  border-radius: 100px;
+  object-fit: cover;
 }
 
 #people-wrap {
