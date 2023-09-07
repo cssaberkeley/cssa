@@ -448,6 +448,7 @@ img.ocf-tag {
   height: 84px;
   width: 84px;
   border-radius: 100px;
+  object-fit: cover;
 }
 
 div.people-square3 {
