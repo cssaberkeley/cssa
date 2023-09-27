@@ -4,6 +4,49 @@
     <meta charset="utf-8">
     <title>CSSA Berkeley</title>
     <meta name="viewport"content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <script>
+      // JavaScript/jQuery to handle dropdown positioning
+      $(document).ready(function() {
+        $(".dropdown").hover(
+          function() {
+            // When hovering over the dropdown button
+            var dropdown = $(this).find('.dropdown-content');
+            var viewportWidth = $(window).width();
+      
+            // Calculate the position of the dropdown
+            var dropdownLeft = $(this).offset().left;
+            var dropdownWidth = dropdown.outerWidth();
+      
+            if (dropdownLeft + dropdownWidth > viewportWidth) {
+              // If the dropdown goes off the screen on the right
+              dropdown.css({
+                right: '0',
+                left: 'auto'
+              });
+            } else {
+              dropdown.css({
+                left: '0',
+                right: 'auto'
+              });
+            }
+      
+            dropdown.stop(true, true).slideDown(200);
+          },
+          function() {
+            // When hovering out
+            $(this).find('.dropdown-content').stop(true, true).slideUp(200);
+          }
+        );
+      });
+      </script>
+      
+
+
   </head>
   <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="images/cssa-img.png">
@@ -45,22 +88,20 @@
         <li>
           <a href="resources.html">Resources</a>
         </li>
-        <li>
-          <a href="people.html">People</a>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">People</a>
+          <ul class="dropdown-content">
+            <li><a href="2023-2024people.html">2023-2024</a></li>
+            <li><a href="2022-2023people.html">2022-2023</a></li>
+            <!-- Add more years as needed -->
+          </ul>
         </li>
-      </ul>
-
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
     
     </nav>
 
     
     <div class="page-top" id="pplback">
-      <h1 id="title" style="color: #8A95FB">BOARD OFFICERS</h1>  
+      <h1 id="title" style="color: #8A95FB">2023-2024 OFFICERS</h1>  
     </div>
 
     <!-- EDIT THIS SECTION!! Just replace all the info with new officers and change styling if preferred! (Like circle profile images). ALSO maybe add tabs for previous?? -->

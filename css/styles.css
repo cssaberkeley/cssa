@@ -28,7 +28,7 @@ nav {
   justify-content: space-between;
   align-items: center;  
   min-height: 8vh; 
- background-color: #FFFDFA; 
+  background-color: #FFFDFA; 
   font-family: 'Josefin Sans', sans-serif;
   z-index: 100;
   position: relative;
@@ -75,12 +75,13 @@ margin-top: 0.4em;
 .nav-links {
   /* USED THIS TO MAKE LINKS MORE IN FROM RIGHT */
   /* margin-right: 12%;  CHANGED RECENT */
-  margin-right: 11%;
+  margin-right: 13%;
   padding-right: 4%;
   display: flex;
   justify-content: space-around;
   width: 30%;
   margin-top: 2%;
+  white-space: nowrap;
 }
 
 .nav-links li{
@@ -100,6 +101,7 @@ margin-top: 0.4em;
   /*font-size: 14px;*/
   /*font-size: 0.9rem;*/
   font-size: 16px;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
 }
 
 
@@ -445,8 +447,8 @@ img.ocf-tag {
 }
 
 .people-img .ppl-img {
-  height: 84px;
-  width: 84px;
+  height: 200px;
+  width: 200px;
   border-radius: 100px;
   object-fit: cover;
 }
@@ -2237,8 +2239,8 @@ width: 50%;
 }
 
 .ppl-img {
-  width: 200px; /* Adjust this value to your desired width */
-  height: 200px; /* Adjust this value to your desired height */
+  width: 200px; 
+  height: 200px; 
   border-radius: 100px;
   object-fit: cover;
 }
@@ -2454,18 +2456,64 @@ width: 50%;
   color: #E6CCA5;
 }
 
+/* Style the dropdown button */
+.dropbtn {
+  padding: 3%;
+  border: none;
+  cursor: pointer;
+}
 
+/* Change color of dropdown button on hover */
+.dropbtn:hover {
+  background-color: transparent; /* Change to transparent */
+}
 
+/* Style the dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+/* Style the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px !important; /* Adjust the width to your desired value */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: 100%; /* Position below the button */
+  left: 0%; /* Center horizontally */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center the text horizontally */
+  font-size: 14px;
+  padding: 0; /* Remove padding */
+  transition: background-color 0.2s, color 0.2s; /* Add transition for color change */
+}
 
+/* Display the dropdown content when hovering over the dropdown container */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
+/* Style each item in the dropdown */
+.dropdown-content li {
+  padding: 10px 0; /* Remove horizontal padding */
+  text-decoration: none;
+  display: block;
+  color: #414194;
+  font-size: 14px !important; /* Set your desired font size here */
+}
 
+/* Change color of dropdown items on hover */
+.dropdown-content li:hover {
+  background-color: transparent !important; /* Change to transparent */
+  color: white
+}
 
-
-
-
-
-
-
-
-
+/* Exclude dropdown links from the hover effect */
+.nav-links .dropdown:hover a:hover {
+  background-color: transparent;
+  color: #8A8AFF;
+  font-size: 14px;
+}
