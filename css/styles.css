@@ -436,7 +436,6 @@ img.ocf-tag {
   padding: 16px 0;
   float: left;
   margin-left: 20px;
-
 }
 
 /* PEOPLE STUFF */
@@ -1896,8 +1895,203 @@ width: 50%;
   margin-bottom: 3%;
 }
 
-.opportunities-faq {
+.CourseMap {
+  position: relative;
   margin-bottom: 3%;
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+  color: black;
+}
+
+.Disciplines {
+  position: relative;
+  align-items: center; /* Align items horizontally (center them) */
+
+}
+
+.Disciplines img {
+  width: 60%;
+  height: 60%;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.Disciplines p {
+  position: absolute;
+  font-weight: bolder;
+  text-align: center;
+  font-size: 2vw;
+  color: #181821;
+  cursor: pointer;
+  z-index: 1;
+  width: 20px;
+  text-shadow: 0 0 5px white;
+
+}
+
+.Disciplines :hover{
+  color: #79797c;
+}
+
+.Neuro {
+  top: 23%;
+  left: 30%;
+}
+
+.Psych {
+  top: 16%;
+  left: 53%;
+}
+
+.CompMod {
+  top: 46%;
+  left: 46%;
+}
+
+.Ling {
+  top: 44%;
+  left: 62%;
+}
+
+.Philo {
+  top: 82%;
+  left: 46%;
+}
+
+.SCC {
+  top: 70%;
+  left: 50.5%;
+}
+
+.ClassesContainer {
+  display: flex;
+  justify-content: center; /* Center the two containers horizontally */
+  margin-top: 20px; /* Add margin to separate from the discipline title */
+  width: 70vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Remove default blue link color and add styling for links within NeuroClasses */
+.ClassesContainer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ClassesContainer p {
+  font-size: 1.5vw;
+}
+
+/* Style link on hover if needed */
+.ClassesContainer a:hover {
+  text-decoration: underline;
+}
+
+.ClassesContainer .NeuroClasses,
+ .ClassesContainer .PsychClasses,
+  .ClassesContainer .CompClasses,
+   .ClassesContainer .LingClasses,
+    .ClassesContainer .PhiloClasses,
+     .ClassesContainer .SCC_Classes {
+  display: none; 
+}
+
+.NeuroClasses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.NeuroClasses p {
+  margin: 5px;
+  padding: 10px;
+  background-color: #67a7a7;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.PsychClasses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.PsychClasses p { 
+  margin: 5px;
+  padding: 10px;
+  background-color: #c382c2;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.CompClasses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.CompClasses p { 
+  margin: 5px;
+  padding: 10px;
+  background-color: #c4a12d;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.LingClasses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.LingClasses p { 
+  margin: 5px;
+  padding: 10px;
+  background-color: #74ac6b;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.PhiloClasses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.PhiloClasses p { 
+  margin: 5px;
+  padding: 10px;
+  background-color: #6891c5;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.SCC_Classes{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.SCC_Classes p { 
+  margin: 5px;
+  padding: 10px;
+  background-color: #bb5f60;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
 }
 
 #scroll-top-resource {
