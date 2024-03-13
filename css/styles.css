@@ -1104,6 +1104,7 @@ p {
   margin-top: 4%;
   background-color: #ECF1F5;
   margin-bottom: 1%;
+  line-height: .5;
 }
 
 .page-top-title {
@@ -2710,4 +2711,9 @@ width: 50%;
   background-color: transparent;
   color: #8A8AFF;
   font-size: 14px;
+}
+
+.speaker-img24 {
+  height: 300px;
+  border-radius: 100%;
 }
