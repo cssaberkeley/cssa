@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CSSA Berkeley</title>
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <script>
+      // JavaScript/jQuery to handle dropdown positioning
+      $(document).ready(function() {
+        $(".dropdown").hover(
+          function() {
+            // When hovering over the dropdown button
+            var dropdown = $(this).find('.dropdown-content');
+            var viewportWidth = $(window).width();
+      
+            // Calculate the position of the dropdown
+            var dropdownLeft = $(this).offset().left;
+            var dropdownWidth = dropdown.outerWidth();
+      
+            if (dropdownLeft + dropdownWidth > viewportWidth) {
+              // If the dropdown goes off the screen on the right
+              dropdown.css({
+                right: '0',
+                left: 'auto'
+              });
+            } else {
+              dropdown.css({
+                left: '0',
+                right: 'auto'
+              });
+            }
+      
+            dropdown.stop(true, true).slideDown(200);
+          },
+          function() {
+            // When hovering out
+            $(this).find('.dropdown-content').stop(true, true).slideUp(200);
+          }
+        );
+      });
+      </script>
+      
+
+
+  </head>
+  <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="images/cssa-img.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&family=Rosario:wght@700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rosario:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+  
+  <body class="diffback" style="background-color: #171756">
+
+
+    <div class="container">
+      <div class="wrap" id="people-wrap">
+
+    <nav style="background-color: #ECF1F5">
+      <li class="logo-index"> <a class="logo-link" href="index.html">
+      <img class="logo-img" src="images/graymodelogo.png">
+      </a> </li> 
+     
+      <ul class="nav-links">
+        <li>
+          <a href="about.html">About</a>
+        </li>
+        <li>
+          <a href="involvement.html">Involvement</a>
+        </li>
+        <li>
+          <a href="events.html">Events</a>
+        </li>
+        <li>
+          <a href="conference.html">Conference</a>
+        </li>
+        <li>
+          <a href="resources.html">Resources</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">People</a>
+          <ul class="dropdown-content">
+            <li><a href="2024-2025people.html">2022-2023</a></li>
+            <li><a href="2023-2024people.html">2023-2024</a></li>
+            <li><a href="2022-2023people.html">2022-2023</a></li>
+            <!-- Add more years as needed -->
+          </ul>
+        </li>
+    
+    </nav>
+
+    
+    <div class="page-top" id="pplback">
+      <h1 id="title" style="color: #8A95FB">2024-2025 OFFICERS</h1>  
+    </div>
+
+    <!-- EDIT THIS SECTION!! Just replace all the info with new officers and change styling if preferred! (Like circle profile images). ALSO maybe add tabs for previous?? -->
+
+    <div class="people-row1">
+      <div class="people-row-column3">
+        <div class="people-square3">
+          <h3 class="people-title">Co-President</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/FortunatoBerumen.jpeg">
+          </div>
+          <h3 class="people-name">Fortunato Berumen</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Cognitive Science, Minor in Data Science
+            <br>
+            <span style="color: #8484FF">Year:</span> Senior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> he/him
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hey everyone! I am a 4th year studying Cognitive Science and Data Science. I love the interdisciplinary nature of cogsci because there is always something new to learn. In my free time I enjoy working out and cooking. 
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I can do a handstand
+            <br>
+           </p>
+        </div>
+        <div class="people-square3">
+          <h3 class="people-title">Fall 2024 Co-President</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/PeridotPark.jpeg">
+          </div>
+          <h3 class="people-name">Peridot Park</h3>
+          <p style="color: #5858B2">
+            <span style="color: #8484FF">Major(s):</span> Cognitive Science & Computer Science
+            <br>
+            <span style="color: #8484FF">Year:</span> Senior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/they
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hi, I'm Peri! I've been a part of CSSA since my freshman year, and I'm super excited for the upcoming semester. I love the interdisciplinary nature of CogSci, and I'm particularly interested in psychology and neuroscience. Outside of classes, I enjoy music, reading, and hanging out with my cat, Rosie :)
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> My name is the birthstone for August but I was born in June.
+            <br>
+          </p>
+        </div>
+        <div class="people-square3">
+          <h3 class="people-title">Internal Vice President</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/rosess.jpg">
+          </div>
+          <h3 class="people-name">Rose Lee</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Data Science & Cognitive Science
+            <br>
+            <span style="color: #8484FF">Year:</span> Senior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hi! I'm a senior majoring in data science and cognitive science and I'm from Orange County. I chose to major in cognitive science because I'm fascinated by how our thoughts and environments influence our decisions and behaviors. My hobbies outside of school are exploring SF and watching documentaries! 
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I love cats.
+            <br>
+           </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="people-row2">
+      <div class="people-row-column4">
+        <div class="people-square4">
+          <h3 class="people-title">External Vice President</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/ShrobanaSengupta.png">
+          </div>
+          <h3 class="people-name">Shrobana Sengupta</h3>
+          <p style="color: #5858B2">
+            <span style="color: #8484FF">Major(s):</span> Business & Data Science
+            <br>
+            <span style="color: #8484FF">Year:</span> Junior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span>  Hi!! My name is Shrobana and I’m a junior majoring in Business and Data Science with an emphasis in Cognition! I love Cognitive Science because of how interdisciplinary it is and that allows me explore different fields and subjects! In my free time, I love to bake, go to concerts, and travel!
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I have a macaron business!
+            <br>
+          </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Finance Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/DevanMelwani.jpg">
+          </div>
+          <h3 class="people-name">Devan Melwani</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> MCB & Cog Sci, Minor in Data Science
+            <br>
+            <span style="color: #8484FF">Year:</span> Sophomore
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> he/him
+            <br>
+            <span style="color: #8484FF">Bio:</span> Devan Melwani is a second year at UC Berkeley, double majoring in Cognitive Science + MCB and minoring in Data Science. I love that CogSci is so interdisciplinary and that there are many different career paths one can go into with a CogSci degree!
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I am on an all-male competitive dance team
+            <br>
+           </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Outreach Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/AadyaPonangi.JPEG">
+          </div>
+          <h3 class="people-name">Aadya Ponangi</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Cognitive Science & Data Science 
+            <br>
+            <span style="color: #8484FF">Year:</span> Sophomore
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hi! My name is Aadya, and I'm a second year majoring in Cognitive Science and Data Science. I love cognitive science because of how it allows me to explore the brain through multiple disciplines, but I especially enjoy its intersection with human data. In my free time, I like to listen to music and podcasts, make soap, and drink lots of hot cocoa.
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I can smell songs!
+            <br>
+           </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Tech Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/ShreyaSingh.jpg">
+          </div>
+          <h3 class="people-name">Shreya Singh</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Data Science & Cognitive Science, Certificate in Design Innovation
+            <br>
+            <span style="color: #8484FF">Year:</span> Junior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hey! I’m super interested in UI/UX Design and Research and how to incorporate more data-driven principles to this field! Some of my favorite things to do outside of class are various racquet sports, doing anything creative, lifting, motorsports, and trying new cafes! 
+ 
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I'm learning four languages on Duolingo right now!
+            <br>
+           </p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="people-row3">
+      <div class="people-row-column4">
+        <div class="people-square4">
+          <h3 class="people-title">Media Marketing Co-Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/NamrataPaudel.jpg">
+          </div>
+          <h3 class="people-name">Namrata Paudel</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Cognitive Science & Psychology
+            <br>
+            <span style="color: #8484FF">Year:</span> Junior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span>Something that I love about CogSci is that everyone in the major is always down to talk about interesting & philosophical topics. It's fun to pick everyone's brain and hear about other's perspectives. 
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I like making art & watching video essays!
+            <br>
+           </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Design Marketing Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/KatelynLiu.png">
+          </div>
+          <h3 class="people-name">Katelyn Liu</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Cognitive Science & Anthropology 
+            <br>
+            <span style="color: #8484FF">Year:</span> Sophomore
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> I'm currently a sophomore majoring in Cognitive Science and Anthropology with a background in neurodiversity advocacy and public health. Outside of my work in CSSA, I love dancing and participate/direct teams on campus. I also love sleeping.
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> no. 1 snoopy fan
+            <br>
+           </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Professional Events Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/ErinVinson.jpg">
+          </div>
+          <h3 class="people-name">Erin Vinson</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Neuroscience & Sociology
+            <br>
+            <span style="color: #8484FF">Year:</span> Junior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hi! My name is Erin and I'm very excited to be part of CSSA. CogSci is so cool because you can explore ton of different topics all within one major, so it's great for people who are curious about a variety of things. Some things I like to do are read, go outside, play games like Stardew Valley and Catan, and eat sweet treats. 
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I can make bird noises 🦅
+            <br>
+           </p>
+        </div>
+        <div class="people-square4">
+          <h3 class="people-title">Social Events Director</h3>
+          <div class="people-img">
+            <img class="ppl-img" src="images/people_imgs/Fall2024/MyraTahir.jpg">
+          </div>
+          <h3 class="people-name">Myra Tahir</h3>
+           <p style="color: #5858B2">
+             <span style="color: #8484FF">Major(s):</span> Cognitive Science & Korean 
+            <br>
+            <span style="color: #8484FF">Year:</span> Senior
+            <br>
+            <span style="color: #8484FF">Pronouns:</span> she/her
+            <br>
+            <span style="color: #8484FF">Bio:</span> Hi! I'm Myra and I'm a senior majoring in Cognitive Science with a minor in Korean. Something I love about CogSci is that it allows to explore lots of different fields, psychology being my favorite. Besides school, I love my dance team, playing video games, and scrapbooking!
+            <br>
+            <span style="color: #8484FF">Fun Fact:</span> I studied abroad in Korea and broke my ankle there!
+            <br>
+           </p>
+        </div>
+      </div>
+      
+    </div>
+      
+    </div>
+
+<!-- 
+    <h1 style="color: #9FA8FF">MORE PEOPLE :)</h1>
+    <div id="slideshow">
+      <div class="slide-wrap">
+
+        <div class="slide">
+          <h1 class="slide-page">Officer social</h1>
+        </div>
+        <div class="slide">
+          <h1 class="slide-page">CSSA meeting</h1>
+        </div>
+        <div class="slide">
+          <h1 class="slide-page">CSSA meeting 2</h1>
+        </div>
+        <div class="slide">
+          <h1 class="slide-page">CSSA meeting 3</h1>
+        </div>
+
+      </div>
+    </div>
+
+  -->
+
+  <div class="more-people-pics">
+    <br>
+    <br>
+     <br>
+    <br>
+    
+    
+  </div>
+
+
+	<script type= "text/javascript" src="app.js"></script>
+
+  </div>
+
+    <div class="bottom-container">
+      <div class="footer-links">
+      <a class="footer-link" href="https://www.linkedin.com/groups/Cognitive-Science-Student-Association-4294489?trk=groups_item_list_abbreviated-h-dsc&goback=%2Egpa_4294489_1_*2_*2_*2_true_cad%2Egna_4294489">LinkedIn</a>
+      <a class="footer-link" href="https://www.instagram.com/cssa.berkeley/?hl=en">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/groups/Cal.CSSA/">Facebook</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCITu99MQ3eunpuYS2bJw3kw">YouTube</a>
+      <a class="footer-link" href="https://github.com/cssaberkeley">Github</a>
+      <a class="footer-link" href="https://www.tiktok.com/@cssa.berkeley">TikTok</a>
+    </div>
+      <p class="copyright">© 2023 Berkeley CSSA</p>
+      <!-- <p class="ocf-tag" >OCF TAG</p> -->
+      <img src="images/ocf-tag.png" class="ocf-tag">
+      <br>
+      <br>
+      <p class="ocfterms">We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.
+      </p>
+
+    </div> 
+    
+
+  </div>
+
+  </body>
+</html>
