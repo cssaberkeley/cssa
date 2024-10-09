@@ -400,10 +400,11 @@ img.conference-page-banner {
   height: 300px;
   width: auto;
 }
-
+/*
 div.ccsc-presenter {
 
 }
+*/
 
 /* FOOTER STUFF */
 
@@ -1603,12 +1604,14 @@ p {
   flex-flow: wrap;
 
 }
+/*
 .pevent-square1 {
   
 }
 .pevent-square2 {
  
 }
+*/
 
 .preveventcontain {
   display: flex;
@@ -2329,6 +2332,7 @@ width: 50%;
   width: 70%;
 }
 
+/*
 #back-arrow {
 
 }
@@ -2523,18 +2527,20 @@ width: 50%;
 
 
 /* OTHER RANDOM STUFF */
+/*
 .list-linebreak {
 
 }
-
+*/
 .diffback {
   background-color: #10104E;
 }
 
+/*
 #pplback {
 
 }
-
+*/
 
 
 /* ABOUT LINKS AT BOTTOM */
