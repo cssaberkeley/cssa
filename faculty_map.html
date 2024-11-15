@@ -113,20 +113,186 @@
     <br>
     <br>
 
-    <a href="resources.html">BACK TO RESOURCES <<<</a>
+    <a href="resources.html">BACK TO RESOURCES </a>
 
     <br>
     <br>
     <br>
 
-    <!-- 
-    <div id="tree-container"></div>
 
-  -->
+    <div id="faculty-map"></div>
+  
+    <style type="text/css">
+    #faculty-map {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+      padding: 20px;
+      position: relative;
+    }
 
+    /* Bubble Styles */
+    .bubble {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #5a9bd6;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, width 0.5s, height 0.5s;
+    }
+
+    /* Hover and Click Effects */
+    .bubble:hover {
+      transform: scale(1.1);
+      background-color: #407bbf;
+    }
+
+    .zoom-in {
+      animation: zoomInEffect 0.3s ease forwards;
+    }
+
+    /* Zoom-In Animation */
+    @keyframes zoomInEffect {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Responsive Design for Mobile */
+    @media (max-width: 600px) {
+      .bubble {
+        width: 90px;
+        height: 90px;
+        font-size: 0.9em;
+      }
+    }
+    </style>
+
+    <script>
+      const data = {
+  "Cognitive Psychology": {
+    "Social Psych": ["Prof. A", "Prof. B"],
+    "Developmental Psych": ["Prof. C"],
+    "Personality Psych": ["Prof. C1"]
+  },
+  "Linguistics": {
+    "Quantum Mechanics": ["Prof. D", "Prof. E"],
+    "Thermodynamics": ["Prof. F"]
+  },
+  "Computational Modeling": {
+
+  },
+  "Cognitive Neuroscience":{
+  
+  },
+  "Anthropology": {
+
+  },
+  "Philosophy": {
+
+  }
+};
+
+const facultyMap = document.getElementById('faculty-map');
+let historyStack = []; // Track navigation history
+
+// Function to create bubbles
+function createBubble(text, onClick, onDoubleClick) {
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = text;
+  bubble.onclick = onClick;
+  bubble.ondblclick = onDoubleClick; // Double-click event for back navigation
+  return bubble;
+}
+
+// Function to display bubbles at each level
+function displayBubbles(levelData, container) {
+  container.innerHTML = '';
+  container.classList.add("zoom-in"); // Add zoom-in effect on navigation
+
+  setTimeout(() => {
+    if (Array.isArray(levelData)) {
+      // Handle array of items (e.g., professors in a subject)
+      levelData.forEach((item) => {
+        const bubble = createBubble(item, () => none, goBackOneLevel); /// replace onClick / this part with the faculty info etc
+        container.appendChild(bubble);
+      });
+    } else {
+      // Handle objects (e.g., subjects or faculty interests)
+      for (const key in levelData) {
+        const bubble = createBubble(
+          key,
+          () => {
+            // Single-click: navigate deeper
+            historyStack.push(levelData); // Save current level to history
+            displayBubbles(levelData[key], container);
+          },
+          goBackOneLevel
+        );
+        container.appendChild(bubble);
+      }
+    }
+  }, 300); // Delay to complete zoom-in transition
+}
+
+function arrangeBubblesInCircle() {
+  const bubbles = document.querySelectorAll('.bubble');
+  var number = bubbles.length
+  const radius = 120; // Radius of the circle from the center
+  const angleStep = (2 * Math.PI) / number; // Calculate angle between each bubble
+
+  bubbles.forEach((bubble, index) => {
+    const angle = index * angleStep; // Calculate angle for each bubble
+    const x = radius * Math.cos(angle); // X coordinate
+    const y = radius * Math.sin(angle); // Y coordinate
+
+    // Position each bubble using transform
+    bubble.style.transform = `translate(${x}px, ${y}px)`;
+
+  });
+}
+
+// Call the function to arrange the bubbles
+// arrangeBubblesInCircle(); UNCOMMENT WHEN READY
+
+
+// FIGURE OUT HOW TO MAKE THE BACK BUTTON WORK!!!!!!!!!!!!!!
+
+
+
+// Function to go back one level
+function goBackOneLevel() {
+  if (historyStack.length > 0) {
+    const previousLevel = historyStack.pop();
+    displayBubbles(previousLevel, facultyMap);
+  }
+}
+
+// Listen for the left key to go back one level
+facultyMap.addEventListener('keypress', (event) => {
+  if (event.keyCode == '37') {
+    goBackOneLevel();
+  }
+});
+
+// Initialize map display
+displayBubbles(data, facultyMap);
+    </script>
+    
     <br>
     <br>
     <br>
+    <!-- <div id="tree-container"></div> -->
 
 
 
