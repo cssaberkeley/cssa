@@ -276,34 +276,65 @@ function createBubble(text, onClick, onDoubleClick) {
   return bubble;
 }
 
+
+// Function to create flippable cards for professors
+function createCard(title, description) {
+  const cardContainer = document.createElement('div');
+  cardContainer.className = 'card-container';
+
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  // Front side of the card (flip to front)
+  const cardFront = document.createElement('div');
+  cardFront.className = 'card-front';
+  cardFront.textContent = title;
+
+  // Back side of the card (flip to back)
+  const cardBack = document.createElement('div');
+  cardBack.className = 'card-back';
+  cardBack.textContent = description || "More info coming soon";
+
+  card.appendChild(cardFront);
+  card.appendChild(cardBack);
+  cardContainer.appendChild(card);
+
+  // Add the flip effect on click
+  cardContainer.addEventListener('click', () => {
+      card.classList.toggle('is-flipped'); // Toggle flip
+  });
+
+  return cardContainer;
+}
+
 // Function to display bubbles at each level
 function displayBubbles(levelData, container) {
-  container.innerHTML = '';
+  container.innerHTML = ''; 
   container.classList.add("zoom-in"); // Add zoom-in effect on navigation
 
   setTimeout(() => {
-    if (Array.isArray(levelData)) {
-      // Handle array of items (e.g., professors in a subject)
-      levelData.forEach((item) => {
-        const bubble = createBubble(item, () => none, goBackOneLevel); /// replace onClick / this part with the faculty info etc
-        container.appendChild(bubble);
-      });
-    } else {
-      // Handle objects (e.g., subjects or faculty interests)
-      for (const key in levelData) {
-        const bubble = createBubble(
-          key,
-          () => {
-            // Single-click: navigate deeper
-            historyStack.push(levelData); // Save current level to history
-            displayBubbles(levelData[key], container);
-          },
-          goBackOneLevel
-        );
-        container.appendChild(bubble);
+      if (Array.isArray(levelData)) {
+          // If it's a list (professors), show flippable cards
+          levelData.forEach((professor) => {
+              const card = createCard(professor, "Professor Info Coming Soon");
+              container.appendChild(card);
+          });
+      } else {
+          // Handle objects (e.g., subjects or faculty interests)
+          for (const key in levelData) {
+              const bubble = createBubble(
+                  key,
+                  () => {
+                    // Single-click: navigate deeper
+                      historyStack.push(levelData); // Save history for back button
+                      displayBubbles(levelData[key], container); // Navigate deeper
+                  },
+                  goBackOneLevel
+              );
+              container.appendChild(bubble);
+          }
       }
-    }
-  }, 300); // Delay to complete zoom-in transition
+  }, 300); // Delay for zoom-in animation
 }
 
 function arrangeBubblesInCircle() {
