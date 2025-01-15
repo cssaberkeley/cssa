@@ -293,7 +293,7 @@ function createCard(title, description) {
   // Back side of the card (flip to back)
   const cardBack = document.createElement('div');
   cardBack.className = 'card-back';
-  cardBack.textContent = description || "More info coming soon";
+  cardBack.textContent = description || "coming soon";
 
   card.appendChild(cardFront);
   card.appendChild(cardBack);
@@ -316,7 +316,7 @@ function displayBubbles(levelData, container) {
       if (Array.isArray(levelData)) {
           // If it's a list (professors), show flippable cards
           levelData.forEach((professor) => {
-              const card = createCard(professor, "Professor Info Coming Soon");
+              const card = createCard(professor, "Coming Soon");
               container.appendChild(card);
           });
       } else {
