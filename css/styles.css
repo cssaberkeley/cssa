@@ -2324,12 +2324,16 @@ width: 50%;
 
 #ccsc22-info-text {
   font-size: 1.4em;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 #ccsc22-page-banner {
   height: 70%;
   width: 70%;
+}
+.conference-banner-fill {
+  height: auto;
+  width: 100%;
 }
 
 /*
@@ -2361,6 +2365,12 @@ width: 50%;
     background: currentColor
 } */
 
+/* CCSC-25 Reference */
+
+.speaker-square {
+  height: 100%;
+  width: 100;
+}
 
 /* PEOPLE.HTML */
 
