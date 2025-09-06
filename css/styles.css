@@ -2398,8 +2398,9 @@ width: 50%;
 
 .people-row2 {
  /* background-color: #FBF6EB;*/
-    padding-top: 2%;
+  padding-top: 2%;
   padding-bottom: 3%;
+  
 }
 
 .people-row2 p {
@@ -2410,8 +2411,10 @@ width: 50%;
 
 .people-row3 {
   /*background-color: #EDF4F3;*/
-    padding-top: 2%;
+  padding-top: 2%;
   padding-bottom: 3%;
+  gap: 2%;
+  
 }
 
 .people-row3 p {
@@ -2478,7 +2481,7 @@ width: 50%;
 
 .people-title-25 {
   background-color: #4848C1;
-  padding: 2% 10%;
+  padding: 4px 5px;
   font-weight: 900;
   font-size: 1.3em;
   color: #eaecfa;
