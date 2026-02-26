@@ -1,436 +1,917 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>CSSA Berkeley</title>
-    <meta name="viewport"content="width=device-width, initial-scale=1.0">
-  </head>
-  <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" href="images/cssa-img.png">
-  <!-- <link rel="icon" href="images/favicon_HM.ico"> -->
+<head>
+  <meta charset="utf-8">
+  <title>CSSA Berkeley – Student Resources</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato&family=Rosario:wght@700&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rosario:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+      background: #ffffff;
+      color: #222;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
 
+    /* =====================================================
+       FIXED STICKY NAV
+    ===================================================== */
+    #sticky-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: #ffffff;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 20px rgba(0,0,0,0.10);
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+      transition: opacity 0.26s ease, transform 0.26s ease;
+    }
+    #sticky-nav.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .sticky-nav-item {
+      width: 280px;
+      text-align: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 10px 0;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .sticky-nav-item:hover { opacity: 0.6; transform: translateY(-1px); }
+    .s-red    { color: #F04665; }
+    .s-yellow { color: #C9A000; }
+    .s-green  { color: #2BBB9A; }
+    .s-blue   { color: #26B4D7; }
 
-  
-  <body style="background-color: #171756">
+    /* =====================================================
+       HERO
+    ===================================================== */
+    .hero {
+      background: #ffffff;
+      padding: 56px 40px 0;
+      text-align: center;
+    }
+    .hero-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 100px;
+      font-weight: 600;
+      color: #171756;
+      letter-spacing: 0.02em;
+      line-height: normal;
+    }
+    /* Drop shadow on divider line */
+    .hero-divider {
+      width: 940px;
+      max-width: 90%;
+      height: 1.5px;
+      background: #b0b8cc;
+      margin: 28px auto 52px;
+      box-shadow: 0 4px 14px 2px rgba(100,110,180,0.35), 0 2px 6px rgba(23,23,86,0.18);
+      border-radius: 1px;
+    }
 
+    /* 4 Nav Tiles */
+    .nav-cards {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .nav-card {
+      width: 297px;
+      height: 410px;
+      flex-shrink: 0;
+      border-radius: 40px;
+      border: 3px solid;
+      background: rgba(217,217,217,0.20);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .nav-card.red    { border-color: #F04665; box-shadow: 0 0 7.7px 9px #F25B8D inset; }
+    .nav-card.yellow { border-color: #F5CB4B; box-shadow: 0 0 7.7px 9px #F9E37E inset; }
+    .nav-card.green  { border-color: #2BBB9A; box-shadow: 0 0 7.7px 9px #BED844 inset; }
+    .nav-card.blue   { border-color: #26B4D7; box-shadow: 0 0 7.7px 9px #67C4EA inset; }
+    .nav-card:hover  { transform: translateY(-8px) scale(1.03); }
+    .nav-card.red:hover    { box-shadow: 0 0 20px 22px #F25B8D inset, 0 18px 40px rgba(242,91,141,0.35); }
+    .nav-card.yellow:hover { box-shadow: 0 0 20px 22px #F9E37E inset, 0 18px 40px rgba(249,227,126,0.35); }
+    .nav-card.green:hover  { box-shadow: 0 0 20px 22px #BED844 inset, 0 18px 40px rgba(43,187,154,0.32); }
+    .nav-card.blue:hover   { box-shadow: 0 0 20px 22px #67C4EA inset, 0 18px 40px rgba(38,180,215,0.32); }
 
-    <div class="container">
-      <div class="wrap" id="resources-wrap">
+    /* Ripple */
+    .nav-card::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      pointer-events: none;
+      width: 0; height: 0;
+    }
+    .nav-card.ripple::after { animation: ripple-anim 0.6s ease-out forwards; }
+    @keyframes ripple-anim {
+      from { width: 0; height: 0; opacity: 1; }
+      to   { width: 600px; height: 600px; opacity: 0; }
+    }
 
-    <nav style="background-color: #ECF1F5">
-      <!-- <div class="logo">
-        <h4>CSSA</h4> 
-      </div>  -->
-      <li class="logo-index"> <a class="logo-link" href="index.html">
-      <img class="logo-img" src="images/graymodelogo.png">
-      </a> </li> 
-      <ul class="nav-links">
-        <!-- 
-        <li>
-          <a href="index.html">Home</a>
-        </li>
-      -->
-        <li>
-          <a href="newsletter.html">Newsletter</a>
-        </li>
-        <li>
-          <a href="about.html">About</a>
-        </li>
-        <li>
-          <a href="involvement.html">Involvement</a>
-        </li>
-        <li>
-          <a href="events.html">Events</a>
-        </li>
-        <li>
-          <a href="conference.html">Conference</a>
-        </li>
-        <li>
-          <a href="resources.html">Resources</a>
-        </li>
-        <li>
-          <a href="2025-2026people.html">People</a>
-        </li>
-      </ul>
+    .nav-card-icon {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+    /* CSS filter to tint black/white PNGs to the correct card color */
+    .nav-card.red    .nav-card-icon { filter: invert(27%) sepia(94%) saturate(1200%) hue-rotate(320deg) brightness(1.05); }
+    .nav-card.yellow .nav-card-icon { filter: invert(78%) sepia(70%) saturate(600%) hue-rotate(0deg) brightness(1.05); }
+    .nav-card.green  .nav-card-icon { filter: invert(55%) sepia(50%) saturate(600%) hue-rotate(120deg) brightness(1.0); }
+    .nav-card.blue   .nav-card-icon { filter: invert(55%) sepia(70%) saturate(500%) hue-rotate(178deg) brightness(1.05); }
 
-      <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
+    .nav-card-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .nav-card.red    .nav-card-label { color: #F04665; }
+    .nav-card.yellow .nav-card-label { color: #C9A000; }
+    .nav-card.green  .nav-card-label { color: #2BBB9A; }
+    .nav-card.blue   .nav-card-label { color: #26B4D7; }
+
+    /* Gap below cards — sticky nav appears when this fully leaves viewport */
+    .hero-gap { height: 64px; background: #ffffff; }
+
+    /* =====================================================
+       SHARED SECTION STYLES
+    ===================================================== */
+    .section-wrap { padding: 64px 80px; }
+    .section-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .content-card {
+      border-radius: 24px;
+      border: 2.5px solid;
+      background: rgba(217,217,217,0.10);
+      padding: 26px 30px;
+    }
+    .content-card h3 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-align: center; margin-bottom: 18px;
+    }
+    .content-card h4 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-align: center; margin-bottom: 14px;
+    }
+    .content-card p {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      line-height: 1.8; margin-bottom: 10px;
+    }
+    .content-card ul { padding-left: 20px; }
+    .content-card li {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      line-height: 1.85; margin-bottom: 6px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* =====================================================
+       ACADEMIC  (dark navy)
+    ===================================================== */
+    #section-academic { background: #171756; }
+    #section-academic .section-title { color: #ffffff; }
+
+    .course-map-btn-wrap { display: flex; justify-content: center; margin-bottom: 36px; }
+    .course-map-btn {
+      border: 2px solid #aaa;
+      border-radius: 32px;
+      padding: 14px 60px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 17px; font-weight: 700;
+      letter-spacing: 0.08em; color: #ddd;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .course-map-btn:hover { background: rgba(255,255,255,0.12); color: #fff; box-shadow: 0 0 14px rgba(255,255,255,0.15); }
+
+    .card-red { border-color: #F04665; box-shadow: 0 0 6px 7px #F25B8D inset; }
+    .card-red h3 { color: #F04665; }
+    .card-red p, .card-red li { color: #f0d0dc; }
+    .card-red a { color: #F9A8C0; text-decoration: underline; }
+
+    .card-blue-s { border-color: #26B4D7; box-shadow: 0 0 6px 7px #67C4EA inset; }
+    .card-blue-s h3 { color: #67C4EA; }
+    .card-blue-s li { color: #cceaf5; }
+
+    .archive-strip {
+      border-radius: 24px;
+      border: 2.5px solid #2BBB9A;
+      box-shadow: 0 0 6px 7px #BED844 inset;
+      background: rgba(217,217,217,0.10);
+      padding: 22px 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .archive-strip p { font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 600; color: #d0f0e0; line-height: 1.8; }
+    .archive-strip a { color: #BED844; text-decoration: underline; }
+
+    .archive-btn-wrap { display: flex; justify-content: center; }
+    .archive-btn {
+      border-radius: 32px; padding: 14px 52px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      background: #F5CB4B; color: #171756;
+      transition: filter 0.2s, transform 0.15s;
+    }
+    .archive-btn:hover { filter: brightness(1.12); transform: translateY(-2px); }
+
+    /* =====================================================
+       CAREER  (dark navy)
+    ===================================================== */
+    #section-career { background: #171756; }
+    #section-career .section-title { color: #ffffff; }
+
+    .what-cogsci-card {
+      border-radius: 24px; border: 2.5px solid #F5CB4B;
+      box-shadow: 0 0 6px 7px #F9E37E inset;
+      background: rgba(217,217,217,0.08);
+      padding: 30px 40px; margin-bottom: 28px; text-align: center;
+    }
+    .what-cogsci-card h3 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 0.08em; color: #F5CB4B; margin-bottom: 16px;
+    }
+    .what-cogsci-card p {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      color: #e8d8a0; line-height: 1.8; margin-bottom: 10px;
+    }
+
+    /* Rainbow Road Career Path Cards — border only */
+    .career-path-cards {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 16px; margin-bottom: 28px;
+    }
+    /* Wrapper IS the border — 3px padding, gradient background */
+    .career-path-card-wrap {
+      position: relative;
+      border-radius: 22px;
+      padding: 3px;
+      background: #F5CB4B;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      overflow: hidden;
+    }
+    /* Default inner glow replicated as box-shadow on wrapper */
+    .career-path-card-wrap { box-shadow: 0 0 6px 5px rgba(249,227,126,0.35); }
+
+    /* Animated rainbow replaces the yellow background on hover */
+    .career-path-card-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        #ff0000 0%, #ff5500 13%, #ffcc00 26%,
+        #33dd33 39%, #00ccff 52%,
+        #6633ff 65%, #cc33ff 78%, #ff0080 91%, #ff0000 100%
+      );
+      background-size: 100% 400%;
+      opacity: 0;
+      transition: opacity 0.32s ease;
+    }
+    .career-path-card-wrap:hover::before {
+      opacity: 1;
+      animation: rainbow-border 1.6s linear infinite;
+    }
+    @keyframes rainbow-border {
+      0%   { background-position: 0% 0%; }
+      100% { background-position: 0% 100%; }
+    }
+    .career-path-card-wrap:hover {
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+    }
+
+    /* Inner card — solid navy fill so only the 3px wrapper ring is visible as border */
+    .career-path-card {
+      position: relative;
+      z-index: 1;
+      height: 90px;
+      border-radius: 19px;
+      background: #171756;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 14px; font-weight: 700;
+      color: #F9E37E; letter-spacing: 0.07em;
+      text-align: center; padding: 0 14px;
+      transition: color 0.22s ease;
+      box-shadow: 0 0 8px 6px rgba(249,227,126,0.15) inset;
+    }
+    .career-path-card-wrap:hover .career-path-card {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.35);
+      box-shadow: none;
+    }
+    .career-path-card span { position: relative; z-index: 2; }
+
+    /* Career bottom row — turn white with glow on hover */
+    .career-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .clickable-card {
+      display: block;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .card-yellow-d {
+      border-color: #F5CB4B;
+      box-shadow: 0 0 6px 7px #F9E37E inset;
+      transition: transform 0.22s ease, box-shadow 0.22s ease,
+                  background 0.22s ease, border-color 0.22s ease;
+    }
+    .card-yellow-d h4 { color: #F5CB4B; transition: color 0.22s; }
+    .card-yellow-d p  { color: #e8d8a0; transition: color 0.22s; }
+    .card-yellow-d:hover {
+      transform: translateY(-4px) scale(1.01);
+      background: rgba(255,255,255,0.96);
+      border-color: #F9E37E;
+      box-shadow: 0 0 18px 18px rgba(249,227,126,0.45) inset, 0 14px 36px rgba(249,227,126,0.3);
+    }
+    .card-yellow-d:hover h4 { color: #b08800; }
+    .card-yellow-d:hover p  { color: #5a4800; }
+
+    .salary-card {
+      border-radius: 24px; border: 2.5px solid #F5CB4B;
+      box-shadow: 0 0 6px 7px #F9E37E inset;
+      background: rgba(217,217,217,0.08);
+      padding: 30px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      transition: transform 0.22s ease, box-shadow 0.22s ease,
+                  background 0.22s ease, border-color 0.22s ease;
+    }
+    .salary-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      background: rgba(255,255,255,0.96);
+      border-color: #F9E37E;
+      box-shadow: 0 0 18px 18px rgba(249,227,126,0.45) inset, 0 14px 36px rgba(249,227,126,0.3);
+    }
+    .salary-card h4 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: #F5CB4B; letter-spacing: 0.07em;
+      margin-bottom: 18px; text-transform: uppercase;
+      transition: color 0.22s;
+    }
+    .salary-card:hover h4 { color: #b08800; }
+    .salary-big {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 48px; font-weight: 700;
+      color: #ffffff; line-height: 1;
+      transition: color 0.22s;
+    }
+    .salary-card:hover .salary-big { color: #171756; }
+    .salary-sub {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: #aaa; margin-top: 12px; letter-spacing: 0.05em;
+      transition: color 0.22s;
+    }
+    .salary-card:hover .salary-sub { color: #888; }
+
+    /* =====================================================
+       RESEARCH  (off-white)
+    ===================================================== */
+    #section-research { background: #f4f5fa; }
+    #section-research .section-title { color: #171756; }
+
+    .research-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr 1fr;
+      gap: 20px; align-items: start;
+    }
+    .research-center { display: flex; flex-direction: column; gap: 20px; }
+
+    .r-card {
+      border-radius: 24px; border: 2.5px solid;
+      background: rgba(217,217,217,0.15); padding: 24px 22px;
+      display: block; text-decoration: none; color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .r-card:hover { transform: translateY(-4px) scale(1.01); }
+    .r-card h4 {
+      font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; text-align: center; margin-bottom: 12px;
+    }
+    .r-card p { font-family: 'Josefin Sans', sans-serif; font-size: 14px; font-weight: 600; color: #333; line-height: 1.78; }
+
+    .r-pink  { border-color: #F04665; box-shadow: 0 0 6px 7px #F25B8D inset; }
+    .r-pink  h4 { color: #F04665; }
+    .r-pink:hover  { box-shadow: 0 0 14px 16px #F25B8D inset, 0 12px 28px rgba(242,91,141,0.25); border-color: #F25B8D; }
+
+    .r-blue  { border-color: #26B4D7; box-shadow: 0 0 6px 7px #67C4EA inset; }
+    .r-blue  h4 { color: #26B4D7; }
+    .r-blue:hover  { box-shadow: 0 0 14px 16px #67C4EA inset, 0 12px 28px rgba(38,180,215,0.25); border-color: #67C4EA; }
+
+    .r-green { border-color: #2BBB9A; box-shadow: 0 0 6px 7px #BED844 inset; }
+    .r-green h4 { color: #2BBB9A; }
+    .r-green:hover { box-shadow: 0 0 14px 16px #BED844 inset, 0 12px 28px rgba(43,187,154,0.25); border-color: #BED844; }
+
+    .r-yellow { border-color: #F5CB4B; box-shadow: 0 0 6px 7px #F9E37E inset; }
+    .r-yellow h4 { color: #C9A000; }
+    .r-yellow:hover { box-shadow: 0 0 14px 16px #F9E37E inset, 0 12px 28px rgba(249,227,126,0.3); border-color: #F9E37E; }
+
+    /* =====================================================
+       COMMUNITY  (light blue bg)
+    ===================================================== */
+    #section-community { background: #D4EBF8; }
+    #section-community .section-title { color: #171756; }
+
+    .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .community-card {
+      border-radius: 24px; border: 2.5px solid #26B4D7;
+      box-shadow: 0 0 6px 7px #67C4EA inset;
+      background: rgba(255,255,255,0.55); padding: 28px 30px;
+      display: block; text-decoration: none; color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .community-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: #4040a0;
+      box-shadow: 0 0 14px 16px rgba(23,23,86,0.55) inset, 0 12px 28px rgba(23,23,86,0.22);
+      background: rgba(255,255,255,0.75);
+    }
+    .community-card h4 {
+      font-family: 'Josefin Sans', sans-serif; font-size: 17px; font-weight: 700;
+      color: #26B4D7; letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .community-card p {
+      font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: #1a2a3a; line-height: 1.88;
+    }
+
+    .wellbeing-link {
+      display: block;
+      font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: #26B4D7; text-decoration: underline; line-height: 2.1;
+      transition: opacity 0.15s;
+    }
+    .wellbeing-link:hover { opacity: 0.65; }
+
+    /* =====================================================
+       TIPS & TRICKS — Accordion
+    ===================================================== */
+    #section-tips { background: #171756; padding-bottom: 80px; }
+    #section-tips .section-title { color: #ffffff; }
+
+    .tips-accordion { display: flex; flex-direction: column; gap: 16px; }
+
+    .tip-item {
+      border-radius: 24px; border: 2.5px solid;
+      background: rgba(217,217,217,0.08); overflow: hidden;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .tip-item:nth-child(1) { border-color: #F04665; box-shadow: 0 0 6px 7px #F25B8D inset; }
+    .tip-item:nth-child(2) { border-color: #F5CB4B; box-shadow: 0 0 6px 7px #F9E37E inset; }
+    .tip-item:nth-child(3) { border-color: #2BBB9A; box-shadow: 0 0 6px 7px #BED844 inset; }
+
+    .tip-item:nth-child(1).open { box-shadow: 0 0 14px 16px #F25B8D inset, 0 10px 28px rgba(242,91,141,0.25); border-color: #F25B8D; }
+    .tip-item:nth-child(2).open { box-shadow: 0 0 14px 16px #F9E37E inset, 0 10px 28px rgba(249,227,126,0.25); border-color: #F9E37E; }
+    .tip-item:nth-child(3).open { box-shadow: 0 0 14px 16px #BED844 inset, 0 10px 28px rgba(190,216,68,0.25);  border-color: #BED844; }
+
+    .tip-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px; cursor: pointer; user-select: none; gap: 16px;
+    }
+    .tip-header-title {
+      font-family: 'Josefin Sans', sans-serif; font-size: 18px; font-weight: 700;
+      letter-spacing: 0.10em; text-transform: uppercase;
+    }
+    .tip-item:nth-child(1) .tip-header-title { color: #F04665; }
+    .tip-item:nth-child(2) .tip-header-title { color: #F5CB4B; }
+    .tip-item:nth-child(3) .tip-header-title { color: #2BBB9A; }
+
+    .tip-toggle {
+      width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 300; line-height: 1;
+      transition: transform 0.35s ease, background 0.25s ease;
+    }
+    .tip-item:nth-child(1) .tip-toggle { border-color: #F04665; color: #F04665; }
+    .tip-item:nth-child(2) .tip-toggle { border-color: #F5CB4B; color: #F5CB4B; }
+    .tip-item:nth-child(3) .tip-toggle { border-color: #2BBB9A; color: #2BBB9A; }
+
+    .tip-item.open .tip-toggle { transform: rotate(45deg); }
+    .tip-item:nth-child(1).open .tip-toggle { background: rgba(242,91,141,0.18); }
+    .tip-item:nth-child(2).open .tip-toggle { background: rgba(249,227,126,0.18); }
+    .tip-item:nth-child(3).open .tip-toggle { background: rgba(190,216,68,0.18); }
+
+    /* Smooth height animation via grid trick */
+    .tip-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .tip-item.open .tip-body { grid-template-rows: 1fr; }
+    .tip-body-inner { overflow: hidden; }
+
+    .tip-content { padding: 0 28px 24px; border-top: 1.5px solid; }
+    .tip-item:nth-child(1) .tip-content { border-color: rgba(242,91,141,0.3); }
+    .tip-item:nth-child(2) .tip-content { border-color: rgba(249,227,126,0.3); }
+    .tip-item:nth-child(3) .tip-content { border-color: rgba(190,216,68,0.3); }
+
+    .tip-content ul { padding: 18px 0 0 20px; }
+    .tip-content li {
+      font-family: 'Josefin Sans', sans-serif; font-size: 15px; font-weight: 600;
+      line-height: 1.85; margin-bottom: 8px; color: #ddd;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .footer { background: #0d0d38; padding: 36px 40px; text-align: center; }
+    .footer-links { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links a {
+      font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 600;
+      color: #8A95FB; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .copyright { font-family: 'Josefin Sans', sans-serif; font-size: 13px; font-weight: 600; color: #555; }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+    @media (max-width: 1200px) {
+      .hero-title { font-size: 72px; }
+      .nav-card { width: 230px; height: 320px; }
+      .nav-card-icon { width: 90px; height: 90px; }
+      .sticky-nav-item { width: 230px; }
+      .section-wrap { padding: 54px 44px; }
+    }
+    @media (max-width: 860px) {
+      .hero-title { font-size: 48px; }
+      .nav-cards { gap: 16px; }
+      .nav-card { width: 180px; height: 260px; }
+      .nav-card-icon { width: 70px; height: 70px; }
+      .nav-card-label { font-size: 18px; }
+      .two-col, .career-bottom, .community-grid, .archive-strip, .research-grid { grid-template-columns: 1fr; }
+      .career-path-cards { grid-template-columns: 1fr 1fr; }
+      .sticky-nav-item { width: 180px; font-size: 13px; }
+    }
+    @media (max-width: 560px) {
+      .hero-title { font-size: 32px; }
+      .nav-cards { flex-direction: column; align-items: center; }
+      .section-wrap { padding: 40px 20px; }
+      .career-path-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FIXED STICKY NAV -->
+  <nav id="sticky-nav" aria-label="Section navigation">
+    <div class="sticky-nav-item s-red"    onclick="gotoSection('section-academic')"  tabindex="0" role="button">Academic</div>
+    <div class="sticky-nav-item s-yellow" onclick="gotoSection('section-career')"    tabindex="0" role="button">Career</div>
+    <div class="sticky-nav-item s-green"  onclick="gotoSection('section-research')"  tabindex="0" role="button">Research</div>
+    <div class="sticky-nav-item s-blue"   onclick="gotoSection('section-community')" tabindex="0" role="button">Community</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero-top">
+    <h1 class="hero-title">STUDENT RESOURCES</h1>
+    <div class="hero-divider"></div>
+    <div class="nav-cards" id="nav-cards">
+      <div class="nav-card red"    data-target="section-academic"  role="button" tabindex="0">
+        <img class="nav-card-icon" src="images/acad.png"   alt="Academic">
+        <span class="nav-card-label">Academic</span>
       </div>
-    
-    </nav>
-
-    
-    <div class="page-top">
-      <h1 id="title" style="color: #8A95FB">STUDENT RESOURCES</h1> 
-      <!-- <h2> [research, etc.] </h2> -->
+      <div class="nav-card yellow" data-target="section-career"    role="button" tabindex="0">
+        <img class="nav-card-icon" src="images/carrr.png"  alt="Career">
+        <span class="nav-card-label">Career</span>
+      </div>
+      <div class="nav-card green"  data-target="section-research"  role="button" tabindex="0">
+        <img class="nav-card-icon" src="images/resrch.png" alt="Research">
+        <span class="nav-card-label">Research</span>
+      </div>
+      <div class="nav-card blue"   data-target="section-community" role="button" tabindex="0">
+        <img class="nav-card-icon" src="images/cmnty.png"  alt="Community">
+        <span class="nav-card-label">Community</span>
+      </div>
     </div>
+  </section>
 
-    <div class="resource-nav" style="background-color: #9FA8FF">
-      <ul class="resource-links">
-        <li><a href="#resource1">Undergrad Resources</a></li>
-         <li><a href="#resource2">Cogsci Faculty</a></li>
-          <li><a href="#resource3">Honors Thesis</a></li>
-           <li><a href="#resource4">Course Map</a></li>
-      </ul>
+  <!-- Gap below tiles — bottom of THIS triggers sticky nav -->
+  <div class="hero-gap" id="hero-gap"></div>
+
+  <!-- ACADEMIC -->
+  <section class="section-wrap" id="section-academic">
+    <h2 class="section-title">Academic Resources</h2>
+    <div class="course-map-btn-wrap">
+      <a class="course-map-btn" href="https://cogsci.berkeley.edu/undergraduate-program/course-requirements" target="_blank">Course Map</a>
     </div>
+    <div class="two-col">
+      <div class="content-card card-red">
+        <h3>Honors Thesis</h3>
+        <p>Cognitive science majors may culminate their study in cognitive science with an honors thesis (a report on an independent research project).</p>
+        <p>The <a href="https://cogsci.berkeley.edu/undergraduate-program/major-program/honors-program">cognitive science program honors thesis page</a> holds all official information about the honors thesis, but lacks examples of what past cognitive science theses look like.</p>
+        <p>CSSA has started an <a href="honorsarchive.html">Honors Thesis Archive</a> containing past cognitive science honors theses, in hope of making the notion a bit more concrete.</p>
+      </div>
+      <div class="content-card card-blue-s">
+        <h3>Honors Thesis Tips</h3>
+        <ul>
+          <li>Your thesis advisor probably has helpful suggestions if you're struggling to find a second reader.</li>
+          <li>Start writing your thesis as early as possible and get as many different eyes as you can on drafts.</li>
+          <li>Oftentimes students do their honors project in a lab they have been working in since junior year.</li>
+          <li>It doesn't hurt to express interest in doing such a project early on in the lab to see if it is an option.</li>
+          <li>Check out other tips from past thesis writers below!</li>
+        </ul>
+      </div>
+    </div>
+    <div class="archive-strip">
+      <p>If you are a graduating major and would like to include your thesis in the archive, please send an email to <a href="mailto:cssa.berkeley@gmail.com">cssa.berkeley@gmail.com</a>.</p>
+      <p>Attach a pdf of your thesis and the relevant information (see entries below) included in the body of the email.</p>
+    </div>
+    <div class="archive-btn-wrap">
+      <a class="archive-btn" href="honorsarchive.html">Honors Thesis Archive</a>
+    </div>
+  </section>
 
+  <!-- CAREER -->
+  <section class="section-wrap" id="section-career">
+    <h2 class="section-title">Career Resources</h2>
+    <div class="what-cogsci-card">
+      <h3>What Can I Do with CogSci?</h3>
+      <p>Cognitive science is one of the most interdisciplinary majors in its right, just by the sheer number of incredible pathways one can take the major through. Because you study the mind through the lenses of Psychology, Computer Science, Philosophy, and Linguistics, you aren't boxed into one career.</p>
+      <p>CogSci alumni typically go on to:</p>
+    </div>
+    <div class="career-path-cards">
+      <div class="career-path-card-wrap">
+        <div class="career-path-card"><span>UX &amp; Product Design</span></div>
+      </div>
+      <div class="career-path-card-wrap">
+        <div class="career-path-card"><span>Software Engineering</span></div>
+      </div>
+      <div class="career-path-card-wrap">
+        <div class="career-path-card"><span>Research &amp; Academia</span></div>
+      </div>
+      <div class="career-path-card-wrap">
+        <div class="career-path-card"><span>Medicine &amp; Health</span></div>
+      </div>
+    </div>
+    <div class="career-bottom">
+      <a class="content-card card-yellow-d clickable-card"
+         href="https://cogsci.berkeley.edu/undergraduate-program/career-research-graduate-study/career-catalyst-program"
+         target="_blank">
+        <h4>CogSci Career Catalyst Program</h4>
+        <p>The Career Catalyst Program is for Cognitive Science majors seeking support in starting their careers after graduation.</p>
+        <p>Some of the perks of this program include networking events, assistance with seeking a position, and summer internship financial support.</p>
+      </a>
+      <a class="salary-card clickable-card"
+         href="https://career.berkeley.edu/start-exploring/where-do-cal-grads-go/"
+         target="_blank">
+        <h4>Explore the Data Yourself!</h4>
+        <div class="salary-big">$90k + 5k</div>
+        <div class="salary-sub">Average Annual Salary + Bonus</div>
+      </a>
+    </div>
+  </section>
 
+  <!-- RESEARCH -->
+  <section class="section-wrap" id="section-research">
+    <h2 class="section-title">Research Resources</h2>
+    <div class="research-grid">
+      <a class="r-card r-pink" href="https://urap.berkeley.edu/" target="_blank">
+        <h4>Undergraduate Research Apprentice Program</h4>
+        <p>The Undergraduate Research Apprentice Program (URAP) is Berkeley's main interface for connecting undergraduates to RA positions in labs.</p>
+        <br>
+        <p>Certain professors will list open projects in their labs on the program website and students can apply for the position through the website.</p>
+      </a>
+      <div class="research-center">
+        <a class="r-card r-blue" href="https://cogsci.berkeley.edu/undergraduate-program/career-research-graduate-study/affiliated-research-centers-and-labs" target="_blank">
+          <h4>Research Lab Directory</h4>
+          <p>While some of the labs on this list may only be available through URAP and other research programs, it still contains information about relevant labs that a CogSci major could reach out to for opportunities!</p>
+        </a>
+        <a class="r-card r-green" href="https://research.berkeley.edu/haas-scholars/" target="_blank">
+          <h4>Haas Scholars Program</h4>
+          <p>A similar program to SURF that provides funding for selected seniors to do research over the summer and over their senior year in preparation for a honors thesis. Applications are due late February.</p>
+        </a>
+      </div>
+      <a class="r-card r-yellow" href="https://surf.berkeley.edu/" target="_blank">
+        <h4>Summer Undergraduate Research Fellowship</h4>
+        <p>The Summer Undergraduate Research Fellowship (SURF) funds undergraduate students to do research for the summer in preparation for an honors thesis.</p>
+        <br>
+        <p>Applications are due in late February or early March depending on your type of project.</p>
+      </a>
+    </div>
+  </section>
 
+  <!-- COMMUNITY -->
+  <section class="section-wrap" id="section-community">
+    <h2 class="section-title">Community Resources</h2>
+    <div class="community-grid">
+      <a class="community-card" href="https://cogsci.berkeley.edu/meet-our-advisors" target="_blank">
+        <h4>CogSci Peer Advising</h4>
+        <p>CogSci Peer Advising offers one-on-one guidance from experienced upperclassmen to help students navigate major requirements, course selection, and research opportunities within the Berkeley Cognitive Science community.</p>
+      </a>
+      <div class="community-card" style="cursor: default; pointer-events: auto;">
+        <h4>Student Wellbeing Links</h4>
+        <a class="wellbeing-link" href="https://uhs.berkeley.edu/caps"               target="_blank">Counseling &amp; Psychological Services (CAPS)</a>
+        <a class="wellbeing-link" href="https://slc.berkeley.edu/"                   target="_blank">Student Learning Center (SLC)</a>
+        <a class="wellbeing-link" href="https://basicneeds.berkeley.edu/"            target="_blank">Basic Needs Center</a>
+        <a class="wellbeing-link" href="https://uhs.berkeley.edu/"                   target="_blank">University Health Services (Tang)</a>
+        <a class="wellbeing-link" href="https://deanofstudents.berkeley.edu/our-resources/community/"    target="_blank">Dean of Students Office</a>
+      </div>
+    </div>
+  </section>
 
+  <!-- TIPS & TRICKS -->
+  <section class="section-wrap" id="section-tips" style="padding-bottom: 80px;">
+    <h2 class="section-title">Tips &amp; Tricks</h2>
+    <div class="tips-accordion">
 
-    <div class="undergrad-resources">
-      <h2 id="resource1" style="color: #8484FF">Undergraduate Resources</h2>
-      <div class="resource-overview">
-        <h3 class="resource-title">Resource Overview</h3>
-
-        <div class="resource-list">
-          <div class="resource-list-left">
-            <div class="resoure-list-item">
-              <h4 class="resource-list-title">Undergraduate Research Apprentice Program</h4>
-              <p class="resource-list-blurb">The Undergraduate Research Apprentice Program (URAP) is Berkeley's main interface for connecting undergraduates to RA positions in labs. Certain professors will list open projects in their labs on the program website and students can apply for the position through the website.</p>
-            </div>
-             <div class="resoure-list-item">
-              <h4 class="resource-list-title">Summer Undergraduate Research Fellowship</h4>
-              <p class="resource-list-blurb">The Summer Undergraduate Research Fellowship (SURF) funds undergraduate students to do research for the summer in preparation for an honors thesis. Applications are due in late February or early March depending on your type of project.</p>
-            </div>
-            <div class="resoure-list-item">
-              <h4 class="resource-list-title">Haas Scholars Program</h4>
-              <p class="resource-list-blurb">A similar program to SURF that provides funding for selected seniors to do research over the summer and over their senior year in preparation for a honors thesis. Applications are due late February.</p>
-            </div>
-          </div>
-          <div class="resource-list-right">
-            <div class="resoure-list-item">
-              <h4 class="resource-list-title">Honors Thesis</h4>
-              <p class="resource-list-blurb">This is a link to the cognitive science major page on the honors thesis. The honors thesis is usually completed in one or two semesters during your senior year.</p>
-            </div>
-            <div class="resoure-list-item">
-              <h4 class="resource-list-title">CogSci Career Catalyst Program</h4>
-              <p class="resource-list-blurb">The Career Catalyst Program is for Cognitive Science majors seeking support in starting their careers after graduation. Some of the perks of this program include networking events, assistance with seeking a position, and summer internship financial support. 
-                <br>
-                <a href="https://cogsci.berkeley.edu/undergraduate-program/career-research-graduate-study/career-catalyst-program">More Information Here</a> </p>
-            </div>
-            <div class="resoure-list-item">
-              <h4 class="resource-list-title">List of CogSci Affiliated Research Centers and Labs</h4>
-              <p class="resource-list-blurb">While some of the labs on this list may only be available through URAP and other research programs, it still contains information about relevent labs that a CogSci major could reach out to for opportunities!
-                <br>
-                <a href="https://cogsci.berkeley.edu/undergraduate-program/career-research-graduate-study/affiliated-research-centers-and-labs">List of Labs</a>
-              </p>
-            </div>
-          </div>
+      <div class="tip-item" id="tip-0">
+        <div class="tip-header" onclick="toggleTip(0)">
+          <span class="tip-header-title">Contacting Labs</span>
+          <div class="tip-toggle">+</div>
         </div>
-
-      </div>
-
-      <div class="tips-and-tricks">
-        <h3 class="resource-title">Tips & Tricks</h3>
-        <div class="tipslist">
-          <div class="tip">
-            <div class="tip-label">Contacting Labs</div>
-            <div class="tip-blurb">
-              <!-- <p>SOMETHING ABOUT SOMETHING ABOUT SOMETHING </p> -->
+        <div class="tip-body">
+          <div class="tip-body-inner">
+            <div class="tip-content">
               <ul>
-                <li>There is no golden option for contacting labs. Common routes include email, visiting office hours, applying through URAP, applying through lab website, and more.</li>
-                <li>Email is probably the easiest method to use, but it is very common not to receive a response.</li>
+                <li>There is no golden option for contacting labs. Common routes include email, visiting office hours, applying through URAP, applying through the lab website, and more.</li>
+                <li>Email is probably the easiest method, but it is very common not to receive a response — persistence matters.</li>
                 <li>Office hours allow you to create a personal connection and really demonstrate interest.</li>
-                <li>Be sure to prepare before visiting office hours. Read some recent publications and write down questions to ask. You don't need to know everything, you just need to show that you're interested!</li>
-                <li>URAP (see resources) makes the application process much more structured, but also more competitive since the positions are publicly advertised.</li>
-                <li>Contacting graduate students directly can often be more effective than going to the professors. In general, graduate students have more time and are more invested in RA's since they are typically the ones directly working with them.</li>
-                <li>Some labs have instructions on how to apply on their website. These are usually there for a reason!</li>
-                <li>Again there is no "right" way to get a RA position. Be persistent and engaged!</li>
+                <li>Be sure to prepare before visiting office hours. Read some recent publications and write down questions. You don't need to know everything — just show you're interested!</li>
+                <li>URAP makes the application process much more structured, but also more competitive since positions are publicly advertised.</li>
+                <li>Contacting graduate students directly can often be more effective than going straight to the professor. They often have more time and are more invested in RAs.</li>
+                <li>Some labs have instructions on how to apply on their website. Follow them — they're there for a reason!</li>
+                <li>There is no "right" way to get an RA position. Be persistent and engaged!</li>
               </ul>
             </div>
           </div>
-          <div class="tip">
-            <div class="tip-label">Improving Your Chances</div>
-            <div class="tip-blurb">
+        </div>
+      </div>
+
+      <div class="tip-item" id="tip-1">
+        <div class="tip-header" onclick="toggleTip(1)">
+          <span class="tip-header-title">Improving Your Chances</span>
+          <div class="tip-toggle">+</div>
+        </div>
+        <div class="tip-body">
+          <div class="tip-body-inner">
+            <div class="tip-content">
               <ul>
-                <li>Demonstrate interest! Ask questions, have conversations with people in the lab, and make sure you are truly interested. They want to make sure that you will be engaged in the lab and so you want to make sure you convey that you are truly excited about the research.</li>
-                <li>Programming experience can really set you apart. If you have any programming experience, be sure to market it! Programming is used for all aspects of the research process and is a highly desirable trait for RA's. In many more technical labs, it may be a necessary prerequisite.</li>
-                <li>Prior research experience is also very marketable. It is definitely possible to get a position without prior experience, but be sure to highlight it if you have it.</li>
-                <li>Relevant coursework is useful. If you want to work in a memory lab, then it can't hurt to take that professor's memory course!</li>
-                <li>Statistics/Experimental Design courses are really useful, especially for data analysis. This background can allow you to get more involved beyond data collection.</li>
+                <li>Demonstrate genuine interest! Ask questions, have conversations with people in the lab — they want to see that you'll be engaged in the research.</li>
+                <li>Programming experience can really set you apart. If you have any, be sure to market it! It's used in all aspects of research and is highly desirable.</li>
+                <li>Prior research experience is very marketable. It's definitely possible to get a position without it, but highlight it if you have it.</li>
+                <li>Relevant coursework helps a lot. If you want to work in a memory lab, consider taking that professor's memory course first!</li>
+                <li>Statistics and Experimental Design courses are especially useful for data analysis — they can help you take on more responsibility beyond data collection.</li>
               </ul>
             </div>
           </div>
-          <div class="tip">
-            <div class="tip-label">General Tips</div>
-            <div class="tip-blurb">
+        </div>
+      </div>
+
+      <div class="tip-item" id="tip-2">
+        <div class="tip-header" onclick="toggleTip(2)">
+          <span class="tip-header-title">General Tips</span>
+          <div class="tip-toggle">+</div>
+        </div>
+        <div class="tip-body">
+          <div class="tip-body-inner">
+            <div class="tip-content">
               <ul>
-                <li>RA positions are generally 8-15 hrs/week. Make sure that you are truly interested in the research as this is a significant time commitment!</li>
-                 <li>Working in multiple labs throughout your undergraduate career can expose you to different research topics and styles and help you better determine which type of research is best for you.</li>
-                  <li>Working in a lab for an extended period of time can help you progress farther than otherwise possible and in some cases can lead to authorship.</li>
-                   <li>Summer research programs can also be useful as they allow you to fully immerse yourself in the research process. These programs can give you a better idea of what doing research full time is like.</li>
+                <li>RA positions are generally 8–15 hrs/week. Make sure you are truly interested in the research — it's a significant time commitment!</li>
+                <li>Working in multiple labs throughout your undergraduate career can expose you to different research topics and styles, helping you figure out what suits you best.</li>
+                <li>Staying in a lab for an extended period allows you to progress further and in some cases can even lead to authorship on papers.</li>
+                <li>Summer research programs are incredibly valuable — they let you fully immerse yourself in the research process and give you a real sense of what full-time research is like.</li>
               </ul>
             </div>
           </div>
-          
         </div>
-
-       <script type="text/javascript">
-         const tipslist = document.getElementsByClassName('tip');
-         for (i=0; i<tipslist.length; i++) {
-          tipslist[i].addEventListener('click', function(){
-            this.classList.toggle('active')
-          })
-         }
-       </script>
-        
-        
       </div>
 
     </div>
+  </section>
 
-
-
-
-
-<!-- <hr class="footer-line"> -->
-
-
-    <div class="cogsci-faculty">
-      <h2 id="resource2" style="color: #9FA8FF">Cogsci Faculty</h2>
-      <div class="faculty-row">
-        <div class="faculty-map">
-          <h3 style="color: #9FA8FF">Faculty Map</h3>
-          <p style="color: #BBBBDD">This map (click button to right) allows you to navigate cog sci faculty by area of interest. These faculty are not all officially affiliated with cognitive science (list of those here), but instead the map is much more comprehensive in an attempt to cover all of the faculty doing research/teaching classes that cognitive science majors might find of interest. Many of these faculty head research labs (though not all), so hopefully this map is a useful tool for those of you looking for research labs, but unsure how to find relevant ones. Though this map attempts to be comprehensive, omissions/errors have probably been made, so feel free to email cssa.berkeley@gmail.com with additions and/or edits.</p>
-        </div>
-        <div class="navigating-map">
-          <h3 style="color: #9FA8FF">Navigating the Map</h3>
-          <!-- THIS IS SUPPOSED TO BE A LIST -->
-          <p style="color: #BBBBDD">Blue ovals can be expanded by clicking on them.
-          You can move the window by clicking and dragging.
-          Scroll to zoom in and out.
-          Faculty names link to their academic faculty profiles.
-          Shaded squares indicate faculty officially associated with the cognitive science program.</p>
-          <br>
-          <br>
-          <a class="btn" href="faculty_map.html">VIEW FACULTY MAP</a>
-        </div>
-      </div>
-      <div class="faculty-row">
-         <div class="credit-map">
-          <h3 style="color: #9FA8FF">Credit</h3>
-          <p style="color: #BBBBDD">This map is a slight variation on robschmuecker's drag and drop, collapsible tree built using d3.js. The idea for the map was inspired by Natalie Bilenko's much prettier visualization of neuroscience faculty at Berkeley. Finally, a lot of the decompositions of topics within the map are based on decompositions within departments or institutes at Berkeley.</p>
-        </div>
-        <div class="department-links">
-          <h3 style="color: #9FA8FF">Department/Related Link</h3>
-           <!-- THIS IS SUPPOSED TO BE A LIST -->
-          <p style="color: #BBBBDD">Cognitive Science Program
-          Psychology Department
-          Philosophy Department
-          Linguistics Department
-          School of Information</p>
-          <p style="color: #BBBBDD">Helen Wills Neuroscience Center
-          Redwood Theoretical Neuroscience Center
-          Institute of Cognitive and Brain Sciences
-          Computer Science Department
-          </p>
-        </div>
-      </div>
-      
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/groups/4294489">LinkedIn</a>
+      <a href="https://www.instagram.com/cssa.berkeley/">Instagram</a>
+      <a href="https://www.facebook.com/groups/Cal.CSSA/">Facebook</a>
+      <a href="https://www.youtube.com/channel/UCITu99MQ3eunpuYS2bJw3kw">YouTube</a>
+      <a href="https://github.com/cssaberkeley">Github</a>
+      <a href="https://www.tiktok.com/@cssa.berkeley">TikTok</a>
     </div>
+    <p class="copyright">© 2023 Berkeley CSSA</p>
+  </footer>
 
+  <script>
+    // ── Scroll to section ──────────────────────────────────────
+    var stickyNav = document.getElementById('sticky-nav');
 
+    function gotoSection(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var offset = stickyNav.classList.contains('visible') ? 64 : 0;
+      var top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
 
-    <div class="honors-thesis">
-      <h2 id="resource3" style="color: #2D2D72">Cogsci Honors Thesis</h2>
-      <div class="honors-row1">
-        <div class="honors-thesis-blurb">
-          <h3 style="color: #2D2D72">Honors Thesis</h3>
-          <p style="color: #414194">Cognitive science majors may culminate their study in cognitive science with an honors thesis. The honors thesis is a report on an independent research project. The cognitive science program honors thesis page holds all of the official information and details about the honors thesis, but lacks examples of what past cognitive science theses look like. Thus, the CSSA has started an honors thesis archive containing past cognitive science honors theses, in hope of making the notion of an honors thesis a bit more concrete and alleviating some of the initial burden in the writing process. <span style="color: black"> If you are a graduating major and would like to include your honors thesis in the archive, please send an email to cssa.berkeley@gmail.com with a pdf of your thesis attached and the relevant information (see entries below) included in the body of the email.</span></p>
-        </div>
-        <div class="honors-thesis-tips">
-          <h3 style="color: #2D2D72">Honors Thesis Tips</h3>
-           <!-- THIS IS SUPPOSED TO BE A LIST -->
-          <ul style="color: #414194" class="honors-thesis-tipslist">
-            <li>Your thesis advisor probably has helpful suggestions if you're struggling to find a second reader.</li>
+    // ── Nav card clicks ────────────────────────────────────────
+    document.querySelectorAll('.nav-card').forEach(function(card) {
+      function activate() {
+        card.classList.remove('ripple');
+        void card.offsetWidth;
+        card.classList.add('ripple');
+        gotoSection(card.dataset.target);
+      }
+      card.addEventListener('click', activate);
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+      });
+    });
 
-            <li>Start writing your thesis as early as possible and get as many different eyes as you can on drafts.</li>
-            <li>Oftentimes students do their honors project in a lab they have been working in since junior year. </li>
-            <li>It doesn't hurt to express interest in doing such a project early on in the lab to see if it is an option.</li>
-            <li>Check out other tips from past thesis writers below!</li>
-          </ul>
-        </div>
-        
-      </div>
-      <div class="honors-row2">
-        <!-- BUTTON FOR FULL ARCHIVE -->
-    
-        <a class="btn" href="honorsarchive.html">HONORS THESIS ARCHIVE</a>
-        
-      </div>
-      
-    </div>
+    // ── Sticky nav keyboard ────────────────────────────────────
+    document.querySelectorAll('.sticky-nav-item').forEach(function(item) {
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+      });
+    });
 
-    <div class="CourseMap">
-      <h2 id="resource4" style="color: #2D2D72">Course Map</h2>
-    
-      <p>Explore classes by discipline! Click on a discipline to reveal its classes, then click on any class to view its course page.</p>
-    
-      <div class="Disciplines">
-        <img src="images/brain.png" class="brain-img">
-        <p class="Neuro" id="Neuro">&nbsp&nbsp&nbspCognitive Neuroscience</p>
-        <p class="Psych" id="Psych">&nbspCognitive Psychology</p>
-        <p class="CompMod" id="CompMod">Computational &nbsp&nbspModeling</p>
-        <p class="Ling" id="Ling">Linguistics</p>
-        <p class="Philo" id="Philo">Philosophy</p>
-        <p class="SCC" id="SCC">Anthropology</p>
-      </div>
+    // ── Sticky nav: show when bottom of nav-cards leaves viewport ──
+    var navCardsEl = document.getElementById('nav-cards');
 
-      <div class="ClassesContainer">
-        <div class="NeuroClasses" id="NeuroClasses">
-          <p><a href="https://guide.berkeley.edu/search/?P=ANTHRO%20107" target="_blank">Anthro 107</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C127" target="_blank">CogSci C127</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20132" target="_blank">CogSci 132</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20117" target="_blank">Psych 117</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20133" target="_blank">Psych 133</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20114" target="_blank">Psych 114</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C126" target="_blank">CogSci C126</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20170" target="_blank">CogSci 170</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20171" target="_blank">CogSci 171</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20172" target="_blank">CogSci 172</a></p>
-        </div>
+    function checkNavVisibility() {
+      var rect = navCardsEl.getBoundingClientRect();
+      if (rect.bottom <= 0) {
+        stickyNav.classList.add('visible');
+      } else {
+        stickyNav.classList.remove('visible');
+      }
+    }
 
-        <div class="PsychClasses" id="PsychClasses">
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C100" target="_blank">CogSci C100</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C126" target="_blank">CogSci C126</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20115" target="_blank">CogSci 115</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20181" target="_blank">CogSci 181</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20182" target="_blank">CogSci 182</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=LINGUIS%20C146" target="_blank">Psych C143</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20125" target="_blank">Psych 125</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20164" target="_blank">Psych 164</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20140" target="_blank">Psych 140</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20147" target="_blank">Psych 147</a></p>
-        </div>
+    window.addEventListener('scroll', checkNavVisibility, { passive: true });
+    checkNavVisibility();
 
-        <div class="CompClasses" id="CompClasses">
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20131" target="_blank">CogSci 131</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20132" target="_blank">CogSci 132</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COMPSCI%20188" target="_blank">CogSci 188</a></p>
-        </div>
+    // ── Tips accordion ─────────────────────────────────────────
+    function toggleTip(index) {
+      var item = document.getElementById('tip-' + index);
+      var isOpen = item.classList.contains('open');
 
-        <div class="LingClasses" id="LingClasses">
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C101" target="_blank">CogSci C101</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20C142" target="_blank">CogSci C142</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20144" target="_blank">CogSci 144</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=LINGUIS%20100" target="_blank">Linguis 144</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=LINGUIS%20108" target="_blank">Linguis 108</a></p>
-        </div>
+      // Close all
+      for (var i = 0; i < 3; i++) {
+        var t = document.getElementById('tip-' + i);
+        if (t) t.classList.remove('open');
+      }
 
-        <div class="PhiloClasses" id="PhiloClasses">
-          <p><a href="https://guide.berkeley.edu/search/?P=AGRS%2036" target="_blank">Agrs 36</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20180" target="_blank">CogSci 180</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%203" target="_blank">Philos 3</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%2012A" target="_blank">Philos 12A</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%2025A" target="_blank">Philos 25A</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%2025B" target="_blank">Philos 25B</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%20122" target="_blank">Philos 122</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%20132" target="_blank">Philos 132</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%20133" target="_blank">Philos 133</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%20135" target="_blank">Philos 135</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PHILOS%20136" target="_blank">Philos 136</a></p>
-        </div>
-
-        <div class="SCC_Classes" id="SCC_Classes">
-          <p><a href="https://guide.berkeley.edu/search/?P=AFRICAM%20115" target="_blank">Africam 115</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=ANTHRO%20149" target="_blank">Anthro 149</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=ANTHRO%20166" target="_blank">Anthro 166</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=COG%20SCI%20181" target="_blank">CogSci 181</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=INFO%20103" target="_blank">Info 103</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=ECON%20119" target="_blank">Econ 119</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=EDUC%20130" target="_blank">Econ 130</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=EDUC%20132" target="_blank">Educ 132</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=EDUC%20140AC" target="_blank">Educ 140AC</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=LINGUIS%20109" target="_blank">Linguis 109</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=LINGUIS%20150" target="_blank">Linguis 150</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20163" target="_blank">Psych 163</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20160" target="_blank">Psych 160</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20164" target="_blank">Psych 164</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=PSYCH%20166AC" target="_blank">Psych 166AC</a></p>
-          <p><a href="https://guide.berkeley.edu/search/?P=SOCIOL%20150" target="_blank">Sociol 150</a></p>
-        </div>
-      </div>
-    </div>
-    
-<!-- 
-
-    <div class="opportunities-faq">
-      <h2 id="resource4">Opportunities/FAQ</h2>
-      <div class="opp-faq">
-        <h3 id="opp-faq-subtitle">Opportunities</h3>
-        <p>This section highlights recent openings, events, and other opportunities! Be sure to check out our "research_careers_opportunities" Slack channel for more information on each of these listings. </p>
-      </div>
-        <div class="opp-faq">
-          <h3>Fung Fellowship</h3>
-          <p>Register for our virtual and hybrid info sessions!
-          <br> 
-          Interested in learning more about how the Fung Fellowship can enrich your undergraduate experience? We're hosting multiple info sessions where you can talk to staff and current Fung Fellows from both tracks about their experiences and ask us any questions.
-          Register on Eventbrite to reserve your spot and receive info session details.
-          <br>
-          February 2 - Virtual Info Session: <a href="http://bit.ly/ff22virtual">Link Here</a>
-          <br>
-          February 9 - Hybrid Info Session: <a href="http://bit.ly/ff22hybrid">Link Here</a>
-          <br>
-          What is the Fung Fellowship?
-          The Fung Fellowship is a unique opportunity for rising juniors and seniors to create impact-driven solutions to address real-world challenges alongside our community and industry partners. Fung Fellows utilize the iterative human-centered design process, interdisciplinary tactics, and emerging technology in both of our offered tracks: Conservation + Tech and Health + Tech.</p>
-        </div>
-        <div class="opp-faq">
-          <h3>Volunteers for UC Berkeley EYH conference</h3>
-          <p>The UC Berkeley Expanding Your Horizons in Science and Mathematics (EYH) Conference will be held in person on Saturday, March 12th 2022. This conference serves to introduce 5th through 8th grade girls* to career opportunities in mathematics, science, engineering, computer science, and technology. This year, we will be inviting 450 youth from the East Bay community to explore math and science by participating in diverse workshops and interacting with undergraduate, graduate, and postdoctoral volunteers.</p>
-          <p>Volunteers can sign up [<a href="https://docs.google.com/forms/d/e/1FAIpQLScJdwVrLkjUpZA6mvSosKoihWFjO2iscZx-Ia-HZLQ91hLnzQ/viewform?usp=sf_link">here</a>]. We will be following campus COVID 19 policies and require all volunteers to be fully vaccinated. More detailed information about the EYH can be found on our [<a href="https://eyh.berkeley.edu/">website</a>].
-          </p>
-          <p>girls*: including transgender, non-binary, and gender non-conforming youth</p>
-        </div>
-      <div class="opp-faq">
-        <h3>FAQ</h3>
-        <p>Stay tuned for our FAQ! Feel free to ask any questions you may have by shooting us an email at cssa.berkeley@gmail.com :)</p> 
-      </div>
-    -->
-
-    </div>
-
-    <div id="scroll-top-resource">
-         <a href="#title">[ SCROLL TO TOP ]</a>
-    </div>
-  
-
-	<script type= "text/javascript" src="app.js"></script>
-
-  </div>
-
-    <div class="bottom-container">
-      <div class="footer-links">
-      <a class="footer-link" href="https://www.linkedin.com/groups/Cognitive-Science-Student-Association-4294489?trk=groups_item_list_abbreviated-h-dsc&goback=%2Egpa_4294489_1_*2_*2_*2_true_cad%2Egna_4294489">LinkedIn</a>
-      <a class="footer-link" href="https://www.instagram.com/cssa.berkeley/?hl=en">Instagram</a>
-      <a class="footer-link" href="https://www.facebook.com/groups/Cal.CSSA/">Facebook</a>
-      <a class="footer-link" href="https://www.youtube.com/channel/UCITu99MQ3eunpuYS2bJw3kw">YouTube</a>
-      <a class="footer-link" href="https://github.com/cssaberkeley">Github</a>
-      <a class="footer-link" href="https://www.tiktok.com/@cssa.berkeley">TikTok</a>
-    </div>
-      <p class="copyright">© 2023 Berkeley CSSA</p>
-      <!-- <p class="ocf-tag" >OCF TAG</p> -->
-      <img src="images/ocf-tag.png" class="ocf-tag">
-      <br>
-      <a class="footer-link" href="https://docs.google.com/forms/d/1IXKIYr1eDERmD7oB7X1fJllibeUhVtcR0XWoHrS0-ms/viewform?edit_requested=tru"> Anonymous Feedback Form</a>
-      <br>
-      <p class="ocfterms">We are a student group acting independently of the University of California. We take full responsibility for our organization and this web site.
-      </p>
-
-    </div> 
-    
-
-  </div>
-
-  </body>
+      // Open this one if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    }
+  </script>
+</body>
 </html>
