@@ -173,7 +173,7 @@
     .speaker-card {
       background: rgba(255,255,255,0.03); border: 1px solid rgba(230,204,165,0.12);
       border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
-      cursor: pointer; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
     .speaker-card:hover { border-color: rgba(230,204,165,0.4); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
     .speaker-card.keynote { border-color: rgba(230,204,165,0.35); background: rgba(230,204,165,0.04); grid-column: span 2; flex-direction: row; }
@@ -192,20 +192,6 @@
     .speaker-card.expanded .speaker-bio-text { -webkit-line-clamp: unset; display: block; }
     .expand-btn { background: none; border: none; color: var(--gold-dark); font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: 0; margin-top: 0.3rem; align-self: flex-start; transition: color 0.2s; }
     .expand-btn:hover { color: var(--gold); }
-
-    /* ── MODAL ── */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(10,10,40,0.82); backdrop-filter: blur(8px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-    .modal-backdrop.open { opacity: 1; pointer-events: all; }
-    .modal { background: #1a1a6a; border: 1px solid rgba(230,204,165,0.25); border-radius: 10px; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s; position: relative; }
-    .modal-backdrop.open .modal { transform: translateY(0); }
-    .modal-header { display: flex; gap: 1.5rem; padding: 2rem; border-bottom: 1px solid rgba(230,204,165,0.12); }
-    .modal-header img { width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 2px solid rgba(230,204,165,0.3); flex-shrink: 0; }
-    .modal-title-block { display: flex; flex-direction: column; gap: 0.35rem; justify-content: center; }
-    .modal-name { font-family: 'Rosario', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
-    .modal-role { font-family: 'Josefin Sans', sans-serif; font-size: 0.8rem; color: var(--gold-dark); letter-spacing: 0.1em; }
-    .modal-body { padding: 2rem; font-size: 0.95rem; line-height: 1.8; color: var(--text-light); }
-    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--gold-dark); font-size: 1.6rem; cursor: pointer; transition: color 0.2s; line-height: 1; }
-    .modal-close:hover { color: var(--gold); }
 
     /* ── BACK LINK ── */
     .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold-dark); text-decoration: none; font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s, gap 0.2s; margin-bottom: 1.5rem; }
@@ -375,7 +361,7 @@
       <div class="speaker-card" onclick="openModal(3)">
         <div class="speaker-img-wrap"><img src="../images/people_imgs/Rita-sherma-portrait.jpg" alt="Speaker"></div>
         <div class="speaker-body">
-          <div class="speaker-top"><span class="speaker-name">Rita D. Sherma, PhD</span><span class="speaker-role">Professor GTU</span></div>
+          <div class="speaker-top"><span class="speaker-name">Rita D. Sherma, PhD</span><span class="speaker-role">Professor, GTU</span></div>
           <p class="speaker-bio-text">Rita D. Sherma is an Associate Professor and Founding Director of the Center for Dharma Studies at the Graduate Theological Union (GTU) in Berkeley, where she also serves on the Core Doctoral Faculty and co-chairs GTU Sustainability 360. She has designed multiple PhD and MA programs in Hindu and Yoga Studies and led curricula in Sustainability Studies. Previously, she held the Swami Vivekananda Visiting Professorship at USC. Dr. Sherma’s research focuses on environmental philosophy, Hindu philosophical theology, ethics, contemplative studies, and interreligious theory. She has published nine books and over 40 academic works, including the 2022 volume Religion & Sustainability and a forthcoming 2025 monograph on Hindu ecological theology. She is the founding editor-in-chief of the Journal of Dharma Studies and serves on various advisory and editorial boards, including those at Yale and the AAR. Recognized for her scholarly impact, she has received numerous awards such as the SASA Exemplar Award (2023), GTU Distinguished Faculty Lecturer (2024), and USC Professor of the Year (2014).</p>
           <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
         </div>
@@ -394,22 +380,6 @@
   </div> 
 </div>
 
-  <!-- MODAL -->
-  <div class="modal-backdrop" id="modal" onclick="closeModal(event)">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModalDirect()">×</button>
-      <div class="modal-header">
-        <img id="modal-img" src="" alt="">
-        <div class="modal-title-block">
-          <div id="modal-pill" class="pill" style="display:none;margin-bottom:0.4rem">Keynote Speaker</div>
-          <div class="modal-name" id="modal-name"></div>
-          <div class="modal-role" id="modal-role"></div>
-        </div>
-      </div>
-      <div class="modal-body" id="modal-bio"></div>
-    </div>
-  </div>
-
 
   <hr class="divider">
 
@@ -426,7 +396,7 @@
       </div>
 
       <div class="poster-card">
-        <p class="poster-title">Acquisition Asymmetries in the Production of WH-Questions: Insights from K'iche'</p>
+        <p class="poster-title">Acquisition Asymmetries in the Production of Wh-Questions: Insights from K'iche'</p>
         <p class="poster-presenter">Oliver Lee</p>
         <p class="poster-school">Stanford University</p>
       </div>
@@ -473,18 +443,20 @@
         <p class="poster-school">UC Berkeley</p>
       </div>
 
-      <div class="poster-card">
+    </div><!-- end poster-grid -->
+
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+      <div class="poster-card" style="width: calc(33.333% - 0.5rem);">
         <p class="poster-title">Fast Moving Targets are Detected More Efficiently than Slow Moving Targets in Visual Search</p>
-        <p class="poster-presenter">Sarah Hackenkamp/p>
+        <p class="poster-presenter">Sarah Hackenkamp</p>
         <p class="poster-school">California State University, East Bay</p>
       </div>
 
-      <div class="poster-card">
+      <div class="poster-card" style="width: calc(33.333% - 0.5rem);">
         <p class="poster-title">Shaping Spatial Cognition: The Impact of Co-speech Gestures on Listener's Spatial Frames of Reference</p>
         <p class="poster-presenter">Shreyas Shenoy, Zoya Chaudhry, Arthur Sipor, Sadove Nasrat, DeAnna Nguyen</p>
         <p class="poster-school">UC Merced</p>
       </div>
-
     </div>
   </div>
 
@@ -568,28 +540,6 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
-
-    // ── MODAL ──
-    const speakers = [
-      { name: 'Gül Dölen, MD/PhD', role: 'Professor, UC Berkeley', keynote: true, bio: "Dr. Gül Dölen is a Professor and the Bob & Renee Parsons Endowed Chair in the Department of Neuroscience, and Department of Psychology, the Berkeley Center for the Science of Psychedelics and the Helen Wills Neuroscience Institute at the University of California, Berkeley. Dr Dölen also maintains an Adjunct Professorship in Neuroscience and Neurology at the Johns Hopkins University, School of Medicine. Dr. Dölen is the recipient of several prestigious awards including: the Joukowsky Family Foundation Outstanding Dissertation Award, the Conquer Fragile X Rising Star Award, the Angus MacDonald Award for Excellence in Undergraduate Teaching, the Society for Social Neuroscience Early Career Award, the Searle Scholars Award, and the Johns Hopkins University President’s Frontier Award."},
-      { name: 'Rita Sherma, PhD', role: 'Professor, GTU', keynote: false, bio: "Rita D. Sherma is an Associate Professor and Founding Director of the Center for Dharma Studies at the Graduate Theological Union (GTU) in Berkeley, where she also serves on the Core Doctoral Faculty and co-chairs GTU Sustainability 360. She has designed multiple PhD and MA programs in Hindu and Yoga Studies and led curricula in Sustainability Studies. Previously, she held the Swami Vivekananda Visiting Professorship at USC. Dr. Sherma’s research focuses on environmental philosophy, Hindu philosophical theology, ethics, contemplative studies, and interreligious theory. She has published nine books and over 40 academic works, including the 2022 volume Religion & Sustainability and a forthcoming 2025 monograph on Hindu ecological theology. She is the founding editor-in-chief of the Journal of Dharma Studies and serves on various advisory and editorial boards, including those at Yale and the AAR. Recognized for her scholarly impact, she has received numerous awards such as the SASA Exemplar Award (2023), GTU Distinguished Faculty Lecturer (2024), and USC Professor of the Year (2014)."},
-      { name: 'Jarrett Robert Rose, PhD', role: 'Professor, SUNY', keynote: false, bio: "Jarrett Robert Rose is Assistant Professor of Community & Behavioral Health and Sociology at the State University of New York (SUNY) Polytechnic Institute. His research examines various dimensions of health, illness, and disease, with a particular focus on mental health and psychedelic-assisted therapy (PAT). Within the fields of psychedelic science and psychedelic studies, Dr. Rose investigates the collective and cultural contexts of PAT, analyzing how social and emotional connection—as well as group dynamics—shape trauma reduction, healing, and self-transformation. His work has been featured in Psychology Today and published in the Journal of Psychedelic Studies and Sociology of Health & Illness." },
-      { name: 'Jeremy Bailenson', role: 'Professor, Stanford', keynote: false, bio: "Jeremy Bailenson is the founding director of Stanford University’s Virtual Human Interaction Lab and a professor in the Department of Communication. His research explores how virtual experiences impact perception, behavior, and social interaction. Over the past three decades, his work has shaped how we understand the psychological effects of Virtual and Augmented Reality, with recent focus on applications in education, empathy, and environmental conservation. He has published over 200 academic papers and is the author of Infinite Reality and Experience on Demand, both critically acclaimed books on the impact of immersive media. His work has been featured by the U.S. Supreme Court, major media outlets, and exhibited in venues ranging from the Smithsonian to the Super Bowl."},
-      { name: 'Sara W. Lazar, PhD', role: 'Keynote Speaker · Teaching Fellow', keynote: false, bio: "Sara W. Lazar, PhD is an Associate Professor in the Psychiatry Department at Massachusetts General Hospital and Harvard Medical School. The focus of her research is to elucidate the neural mechanisms underlying the beneficial effects of yoga and meditation, both in clinical settings and in healthy individuals. She has been practicing yoga and mindfulness meditation since 1994. Her research has been covered by numerous news outlets including The New York Times, USA Today, CNN, and WebMD." },
-    ];
-
-    function openModal(i) {
-      const s = speakers[i];
-      document.getElementById('modal-name').textContent  = s.name;
-      document.getElementById('modal-role').textContent  = s.role;
-      document.getElementById('modal-bio').textContent   = s.bio;
-      document.getElementById('modal-img').src           = 'headshot.jpg';
-      document.getElementById('modal-pill').style.display = s.keynote ? 'inline-block' : 'none';
-      document.getElementById('modal').classList.add('open');
-    }
-    function closeModal(e) { if (e.target === document.getElementById('modal')) closeModalDirect(); }
-    function closeModalDirect() { document.getElementById('modal').classList.remove('open'); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
 
     function toggleExpand(btn) {
       const card = btn.closest('.speaker-card');
