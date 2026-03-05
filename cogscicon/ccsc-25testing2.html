@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CSSA Berkeley – CCSC 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Lato:wght@300;400;700&family=Rosario:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #171756; --navy-mid: #1e1f6e; --gold: #E6CCA5;
+      --gold-bright: #f0d9b5; --gold-dark: #c9a96e;
+      --text-light: rgba(230,204,165,0.75);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); font-family: 'Lato', sans-serif; color: var(--gold); overflow-x: hidden; }
+
+    /* ── STAR CANVAS: fixed to full viewport, behind everything ── */
+    #starsCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* All page content sits above the canvas */
+    nav, section, .banner-section, .section, hr.divider, .modal-backdrop, footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 64px;
+      background: rgba(23,23,86,0.85); backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(230,204,165,0.15); transition: background 0.3s;
+    }
+    nav.scrolled { background: rgba(23,23,86,0.97); }
+    .logo-link img { height: 38px; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--gold); text-decoration: none;
+      font-family: 'Josefin Sans', sans-serif; font-size: 0.82rem;
+      letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8;
+      transition: opacity 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--gold); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.25s ease;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding-top: 64px;
+    }
+    .hero-content { text-align: center; padding: 2rem; }
+
+    .hero-eyebrow {
+      font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-dark);
+      margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-title {
+      display: flex; flex-direction: column; align-items: center;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-ccsc {
+      font-family: 'Rosario', serif;
+      font-size: clamp(5rem, 16vw, 12rem);
+      font-weight: 700; line-height: 1;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+    }
+    .hero-year-wrap {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 0.1em;
+    }
+    .hero-year-line {
+      height: 2px; width: clamp(40px, 6vw, 80px); border-radius: 2px;
+    }
+    .hero-year-line.left  { background: linear-gradient(to right, transparent, var(--gold-dark)); }
+    .hero-year-line.right { background: linear-gradient(to left,  transparent, var(--gold-dark)); }
+    .hero-year {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(1.4rem, 4.5vw, 3.2rem);
+      font-weight: 600; letter-spacing: 0.28em;
+      color: var(--gold-dark);
+    }
+
+    .hero-theme {
+      margin-top: 2rem; font-family: 'Josefin Sans', sans-serif;
+      font-style: italic; font-size: clamp(0.85rem, 1.8vw, 1rem);
+      color: var(--text-light); max-width: 480px; margin-inline: auto;
+      opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+      border-top: 1px solid rgba(230,204,165,0.2);
+      padding-top: 1.4rem;
+    }
+    .hero-cta { margin-top: 2rem; opacity: 0; animation: fadeUp 0.9s 1.05s forwards; }
+    .btn-primary {
+      display: inline-block; padding: 0.85rem 2.2rem; background: var(--gold);
+      color: var(--navy); font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(230,204,165,0.25); }
+    .scroll-hint {
+      margin-top: 3rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0; animation: fadeIn 1s 1.6s forwards;
+      color: var(--text-light); font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    }
+    .scroll-hint .line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--gold-dark), transparent);
+      animation: pulseDown 2s 1.6s infinite;
+    }
+
+    /* ── BANNER: natural aspect ratio, capped at a tasteful height ── */
+    .banner-section { overflow: hidden; }
+    .banner-img-wrap {
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    .banner-img-wrap img {
+      width: 100%;
+      height: auto;        /* lets the image define its own height naturally */
+      display: block;
+      object-fit: contain; /* no cropping — shows the full image */
+      border-radius: 16px;
+      filter: brightness(0.88); transition: filter 0.4s;
+    }
+    .banner-section:hover .banner-img-wrap img { filter: brightness(1); }
+    .banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(23,23,86,0.6) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ── SECTIONS ── */
+    .section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Rosario', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--gold); margin-bottom: 1.5rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-text { font-size: 1rem; line-height: 1.8; color: var(--text-light); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .stat-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(230,204,165,0.15);
+      border-radius: 6px; padding: 1.5rem 1.2rem; text-align: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .stat-card:hover { border-color: rgba(230,204,165,0.4); background: rgba(255,255,255,0.07); }
+    .stat-number { font-family: 'Rosario', serif; font-size: 2.4rem; font-weight: 700; color: var(--gold); display: block; }
+    .stat-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dark); margin-top: 0.3rem; }
+    .divider { border: none; border-top: 1px solid rgba(230,204,165,0.12); margin: 0 2rem; }
+
+    /* ── SPEAKERS ── */
+    .speakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .speaker-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(230,204,165,0.12);
+      border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
+      cursor: pointer; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .speaker-card:hover { border-color: rgba(230,204,165,0.4); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .speaker-card.keynote { border-color: rgba(230,204,165,0.35); background: rgba(230,204,165,0.04); grid-column: span 2; flex-direction: row; }
+    @media (max-width: 720px) { .speaker-card.keynote { grid-column: span 1; flex-direction: column; } }
+    .speaker-img-wrap { position: relative; overflow: hidden; flex-shrink: 0; }
+    .speaker-card:not(.keynote) .speaker-img-wrap { aspect-ratio: 4/3; }
+    .speaker-card.keynote .speaker-img-wrap { width: 220px; }
+    .speaker-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; filter: grayscale(20%); }
+    .speaker-card:hover .speaker-img-wrap img { transform: scale(1.05); filter: grayscale(0%); }
+    .speaker-body { padding: 1.4rem 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .speaker-top { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+    .speaker-name { font-family: 'Rosario', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); }
+    .speaker-role { font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold-dark); }
+    .pill { display: inline-block; padding: 0.18rem 0.65rem; background: var(--gold); color: var(--navy); font-family: 'Josefin Sans', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 50px; }
+    .speaker-bio-text { font-size: 0.88rem; line-height: 1.7; color: var(--text-light); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .speaker-card.expanded .speaker-bio-text { -webkit-line-clamp: unset; display: block; }
+    .expand-btn { background: none; border: none; color: var(--gold-dark); font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: 0; margin-top: 0.3rem; align-self: flex-start; transition: color 0.2s; }
+    .expand-btn:hover { color: var(--gold); }
+
+    /* ── MODAL ── */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(10,10,40,0.82); backdrop-filter: blur(8px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal { background: #1a1a6a; border: 1px solid rgba(230,204,165,0.25); border-radius: 10px; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s; position: relative; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; gap: 1.5rem; padding: 2rem; border-bottom: 1px solid rgba(230,204,165,0.12); }
+    .modal-header img { width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 2px solid rgba(230,204,165,0.3); flex-shrink: 0; }
+    .modal-title-block { display: flex; flex-direction: column; gap: 0.35rem; justify-content: center; }
+    .modal-name { font-family: 'Rosario', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+    .modal-role { font-family: 'Josefin Sans', sans-serif; font-size: 0.8rem; color: var(--gold-dark); letter-spacing: 0.1em; }
+    .modal-body { padding: 2rem; font-size: 0.95rem; line-height: 1.8; color: var(--text-light); }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--gold-dark); font-size: 1.6rem; cursor: pointer; transition: color 0.2s; line-height: 1; }
+    .modal-close:hover { color: var(--gold); }
+
+    /* ── BACK LINK ── */
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold-dark); text-decoration: none; font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s, gap 0.2s; margin-bottom: 1.5rem; }
+    .back-link:hover { color: var(--gold); gap: 0.75rem; }
+    .back-link svg { transition: transform 0.2s; }
+    .back-link:hover svg { transform: translateX(-3px); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid rgba(230,204,165,0.1); padding: 3rem 2rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .footer-link { color: var(--text-light); text-decoration: none; font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-link:hover { color: var(--gold); }
+    .copyright { font-size: 0.78rem; color: rgba(230,204,165,0.4); font-family: 'Josefin Sans', sans-serif; }
+    .ocfterms { font-size: 0.72rem; color: rgba(230,204,165,0.3); max-width: 500px; line-height: 1.6; }
+    .ocf-tag { height: 32px; opacity: 0.5; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulseDown { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed full-viewport star canvas -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a class="logo-link" href="../index.html">
+      <img src="../images/cssa-logobg2.png" alt="CSSA logo" onerror="this.style.display='none'">
+    </a>
+    <ul class="nav-links">
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../involvement.html">Involvement</a></li>
+      <li><a href="../events.html">Events</a></li>
+      <li><a href="../conference.html">Conference</a></li>
+      <li><a href="../resources.html">Resources</a></li>
+      <li><a href="../people.html">People</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">California Cognitive Science Conference</p>
+      <h1 class="hero-title">
+        <span class="hero-ccsc">CCSC</span>
+        <div class="hero-year-wrap">
+          <div class="hero-year-line left"></div>
+          <span class="hero-year">2025</span>
+          <div class="hero-year-line right"></div>
+        </div>
+      </h1>
+      <p class="hero-theme">"Pathways to Purpose: The Cognitive Pursuit of Clarity"</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="https://www.eventbrite.com/e/15th-annual-california-cognitive-science-conference-ccsc-2024-tickets-817843059607">View the Program</a>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>Scroll</span><div class="line"></div></div>
+  </section>
+
+  <!-- BANNER -->
+  <div class="banner-section reveal" style="position:relative">
+    <div class="banner-img-wrap">
+      <img src="../images/conference_imgs/ccsc25_banner.jpg" alt="CCSC 2025 banner">
+    </div>
+    <div class="banner-overlay"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section reveal">
+    <a class="back-link" href="../conference.html">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20.3284 11.0001V13.0001L7.50011 13.0001L10.7426 16.2426L9.32842 17.6568L3.67157 12L9.32842 6.34314L10.7426 7.75735L7.49988 11.0001L20.3284 11.0001Z" fill="currentColor"/></svg>
+      Back to Conference
+    </a>
+    <div class="about-grid">
+      <div>
+        <p class="section-label">About the Conference</p>
+        <h2 class="section-title">Where Minds Meet</h2>
+        <p class="about-text">The California Cognitive Science Conference at UC Berkeley is an annual all-day symposium bringing together hundreds of students, researchers, and members of the general public passionate about the interdisciplinary field of Cognitive Science.</p>
+        <p class="about-text" style="margin-top:1rem">We feature talks by prominent scientists and thinkers from a wide variety of disciplines, and our acclaimed poster session provides undergraduates with the opportunity to present their original research alongside graduate students and professional researchers.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><span class="stat-number" data-count="15">0</span><span class="stat-label">Years Running</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="500">0</span><span class="stat-label">Attendees</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="6">0</span><span class="stat-label">Disciplines</span></div>
+        <div class="stat-card"><span class="stat-number" data-count="12">0</span><span class="stat-label">Speakers</span></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SPEAKERS -->
+  <div class="section reveal">
+    <p class="section-label">Lineup</p>
+    <h2 class="section-title">Focus Speakers</h2>
+    <div class="speakers-grid">
+      <div class="speaker-card" onclick="openModal(0)">
+        <div class="speaker-img-wrap"><img src="headshot.jpg" alt="Speaker"></div>
+        <div class="speaker-body">
+          <div class="speaker-top"><span class="speaker-name">Gül Dölen, MD/PhD</span><span class="speaker-role">Professor, UC Berkeley</span></div>
+          <p class="speaker-bio-text">Dr. Gül Dölen is a Professor and the Bob & Renee Parsons Endowed Chair in the Department of Neuroscience, and Department of Psychology, the Berkeley Center for the Science of Psychedelics and the Helen Wills Neuroscience Institute at the University of California, Berkeley. Dr Dölen also maintains an Adjunct Professorship in Neuroscience and Neurology at the Johns Hopkins University, School of Medicine. Dr. Dölen is the recipient of several prestigious awards including: the Joukowsky Family Foundation Outstanding Dissertation Award, the Conquer Fragile X Rising Star Award, the Angus MacDonald Award for Excellence in Undergraduate Teaching, the Society for Social Neuroscience Early Career Award, the Searle Scholars Award, and the Johns Hopkins University President’s Frontier Award.</p>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
+        </div>
+      </div>
+      <div class="speaker-card" onclick="openModal(1)">
+        <div class="speaker-img-wrap"><img src="headshot.jpg" alt="Speaker"></div>
+        <div class="speaker-body">
+          <div class="speaker-top"><span class="speaker-name">Jane Doe</span><span class="speaker-role">Professor, MIT</span></div>
+          <p class="speaker-bio-text">Researcher specializing in neural correlates of decision-making and cognitive flexibility. Her lab studies how the brain integrates conflicting signals to produce adaptive behavior.</p>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
+        </div>
+      </div>
+      <div class="speaker-card" onclick="openModal(2)">
+        <div class="speaker-img-wrap"><img src="headshot.jpg" alt="Speaker"></div>
+        <div class="speaker-body">
+          <div class="speaker-top"><span class="speaker-name">Sam Rivera</span><span class="speaker-role">Cognitive Neuroscientist</span></div>
+          <p class="speaker-bio-text">Expert in language acquisition and bilingual cognition. Rivera's work bridges computational models and behavioral experiments to understand how language shapes thought.</p>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
+        </div>
+      </div>
+      <div class="speaker-card" onclick="openModal(3)">
+        <div class="speaker-img-wrap"><img src="headshot.jpg" alt="Speaker"></div>
+        <div class="speaker-body">
+          <div class="speaker-top"><span class="speaker-name">Alex Chen</span><span class="speaker-role">AI & Ethics Researcher</span></div>
+          <p class="speaker-bio-text">Explores the intersection of artificial intelligence and human values, studying how algorithmic systems encode societal biases and how cognitive science can inform ethical AI design.</p>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
+        </div>
+      </div>
+      <div class="speaker-card keynote" onclick="openModal(4)">
+        <div class="speaker-img-wrap"><img src="headshot.jpg" alt="Keynote Speaker"></div>
+        <div class="speaker-body">
+          <div class="speaker-top"><span class="speaker-name">John DeNero</span><span class="speaker-role">Teaching Fellow</span><span class="pill">Keynote Speaker</span></div>
+          <p class="speaker-bio-text">Yoona Kong is an Assistant Professor of Psychology at Rutgers University–Camden. Her research explores how social experiences impact health using multimethod approaches including neuroimaging, behavioral experiments, and natural language processing.</p>
+          <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modal" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModalDirect()">×</button>
+      <div class="modal-header">
+        <img id="modal-img" src="" alt="">
+        <div class="modal-title-block">
+          <div id="modal-pill" class="pill" style="display:none;margin-bottom:0.4rem">Keynote Speaker</div>
+          <div class="modal-name" id="modal-name"></div>
+          <div class="modal-role" id="modal-role"></div>
+        </div>
+      </div>
+      <div class="modal-body" id="modal-bio"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a class="footer-link" href="https://www.linkedin.com/groups/4294489">LinkedIn</a>
+      <a class="footer-link" href="https://www.instagram.com/cssa.berkeley/">Instagram</a>
+      <a class="footer-link" href="https://www.facebook.com/groups/Cal.CSSA/">Facebook</a>
+      <a class="footer-link" href="https://www.youtube.com/channel/UCITu99MQ3eunpuYS2bJw3kw">YouTube</a>
+      <a class="footer-link" href="https://github.com/cssaberkeley">GitHub</a>
+      <a class="footer-link" href="https://www.tiktok.com/@cssa.berkeley">TikTok</a>
+    </div>
+    <img src="../images/ocf-tag.png" class="ocf-tag" alt="OCF tag" onerror="this.style.display='none'">
+    <a class="footer-link" href="https://docs.google.com/forms/d/1IXKIYr1eDERmD7oB7X1fJllibeUhVtcR0XWoHrS0-ms/viewform">Anonymous Feedback Form</a>
+    <p class="copyright">© 2025 Berkeley CSSA</p>
+    <p class="ocfterms">We are a student group acting independently of the University of California. We take full responsibility for our organization and this website.</p>
+  </footer>
+
+  <script>
+    // ── STAR CANVAS ──
+    // Canvas is position:fixed, so we size it to the viewport (not the document).
+    // On resize we re-size AND re-scatter the stars.
+    const canvas = document.getElementById('starsCanvas');
+    const ctx    = canvas.getContext('2d');
+    let stars    = [];
+
+    function resizeCanvas() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+      const starColors = ['232,69,60','232,184,32','46,143,212','42,168,135'];
+      stars = Array.from({ length: 200}, () => ({
+        x:     Math.random() * canvas.width,
+        y:     Math.random() * canvas.height,
+        r:     Math.random() * 1.5 + 0.2,
+        speed: Math.random() * 0.004 + 0.001,
+        phase: Math.random() * Math.PI * 2,
+        color: starColors[Math.floor(Math.random() * starColors.length)],
+      }));
+    }
+
+    function drawStars(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const s of stars) {
+        const a = 0.25 + 0.65 * Math.abs(Math.sin(s.phase + t * s.speed));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.color},${a.toFixed(2)})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(drawStars);
+    }
+
+    resizeCanvas();
+    initStars();
+    requestAnimationFrame(drawStars);
+    window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+    // ── NAV SCROLL ──
+    window.addEventListener('scroll', () => {
+      document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── SCROLL REVEAL ──
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ── COUNT-UP ──
+    const countObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target, target = +el.dataset.count, suffix = target >= 100 ? '+' : '';
+        let n = 0; const step = Math.ceil(target / 40);
+        const timer = setInterval(() => { n = Math.min(n + step, target); el.textContent = n + suffix; if (n >= target) clearInterval(timer); }, 35);
+        countObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+
+    // ── MODAL ──
+    const speakers = [
+      { name: 'Gül Dölen, MD/PhD', role: 'Professor, UC Berkeley', keynote: true, bio: "Dr. Gül Dölen is a Professor and the Bob & Renee Parsons Endowed Chair in the Department of Neuroscience, and Department of Psychology, the Berkeley Center for the Science of Psychedelics and the Helen Wills Neuroscience Institute at the University of California, Berkeley. Dr Dölen also maintains an Adjunct Professorship in Neuroscience and Neurology at the Johns Hopkins University, School of Medicine. Dr. Dölen is the recipient of several prestigious awards including: the Joukowsky Family Foundation Outstanding Dissertation Award, the Conquer Fragile X Rising Star Award, the Angus MacDonald Award for Excellence in Undergraduate Teaching, the Society for Social Neuroscience Early Career Award, the Searle Scholars Award, and the Johns Hopkins University President’s Frontier Award."},
+      { name: 'Rita Sherma, PhD', role: 'Professor, GTU', keynote: false, bio: "Rita D. Sherma is an Associate Professor and Founding Director of the Center for Dharma Studies at the Graduate Theological Union (GTU) in Berkeley, where she also serves on the Core Doctoral Faculty and co-chairs GTU Sustainability 360. She has designed multiple PhD and MA programs in Hindu and Yoga Studies and led curricula in Sustainability Studies. Previously, she held the Swami Vivekananda Visiting Professorship at USC. Dr. Sherma’s research focuses on environmental philosophy, Hindu philosophical theology, ethics, contemplative studies, and interreligious theory. She has published nine books and over 40 academic works, including the 2022 volume Religion & Sustainability and a forthcoming 2025 monograph on Hindu ecological theology. She is the founding editor-in-chief of the Journal of Dharma Studies and serves on various advisory and editorial boards, including those at Yale and the AAR. Recognized for her scholarly impact, she has received numerous awards such as the SASA Exemplar Award (2023), GTU Distinguished Faculty Lecturer (2024), and USC Professor of the Year (2014)."},
+      { name: 'Jarrett Robert Rose, PhD', role: 'Professor, SUNY', keynote: false, bio: "Jarrett Robert Rose is Assistant Professor of Community & Behavioral Health and Sociology at the State University of New York (SUNY) Polytechnic Institute. His research examines various dimensions of health, illness, and disease, with a particular focus on mental health and psychedelic-assisted therapy (PAT). Within the fields of psychedelic science and psychedelic studies, Dr. Rose investigates the collective and cultural contexts of PAT, analyzing how social and emotional connection—as well as group dynamics—shape trauma reduction, healing, and self-transformation. His work has been featured in Psychology Today and published in the Journal of Psychedelic Studies and Sociology of Health & Illness." },
+      { name: 'Jeremy Bailenson', role: 'Professor, Stanford', keynote: false, bio: "Jeremy Bailenson is the founding director of Stanford University’s Virtual Human Interaction Lab and a professor in the Department of Communication. His research explores how virtual experiences impact perception, behavior, and social interaction. Over the past three decades, his work has shaped how we understand the psychological effects of Virtual and Augmented Reality, with recent focus on applications in education, empathy, and environmental conservation. He has published over 200 academic papers and is the author of Infinite Reality and Experience on Demand, both critically acclaimed books on the impact of immersive media. His work has been featured by the U.S. Supreme Court, major media outlets, and exhibited in venues ranging from the Smithsonian to the Super Bowl."},
+      { name: 'Sara W. Lazar, PhD', role: 'Keynote Speaker · Teaching Fellow', keynote: false, bio: "Sara W. Lazar, PhD is an Associate Professor in the Psychiatry Department at Massachusetts General Hospital and Harvard Medical School. The focus of her research is to elucidate the neural mechanisms underlying the beneficial effects of yoga and meditation, both in clinical settings and in healthy individuals. She has been practicing yoga and mindfulness meditation since 1994. Her research has been covered by numerous news outlets including The New York Times, USA Today, CNN, and WebMD." },
+    ];
+
+    function openModal(i) {
+      const s = speakers[i];
+      document.getElementById('modal-name').textContent  = s.name;
+      document.getElementById('modal-role').textContent  = s.role;
+      document.getElementById('modal-bio').textContent   = s.bio;
+      document.getElementById('modal-img').src           = 'headshot.jpg';
+      document.getElementById('modal-pill').style.display = s.keynote ? 'inline-block' : 'none';
+      document.getElementById('modal').classList.add('open');
+    }
+    function closeModal(e) { if (e.target === document.getElementById('modal')) closeModalDirect(); }
+    function closeModalDirect() { document.getElementById('modal').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+    function toggleExpand(btn) {
+      const card = btn.closest('.speaker-card');
+      card.classList.toggle('expanded');
+      btn.textContent = card.classList.contains('expanded') ? 'Show less ↑' : 'Read more ↓';
+    }
+  </script>
+</body>
+</html>
