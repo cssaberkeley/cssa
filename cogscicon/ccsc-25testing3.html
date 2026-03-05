@@ -169,7 +169,7 @@
     .divider { border: none; border-top: 1px solid rgba(230,204,165,0.12); margin: 0 2rem; }
 
     /* ── SPEAKERS ── */
-    .speakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .speakers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .speaker-card {
       background: rgba(255,255,255,0.03); border: 1px solid rgba(230,204,165,0.12);
       border-radius: 8px; overflow: hidden; display: flex; flex-direction: column;
@@ -179,9 +179,9 @@
     .speaker-card.keynote { border-color: rgba(230,204,165,0.35); background: rgba(230,204,165,0.04); grid-column: span 2; flex-direction: row; }
     @media (max-width: 720px) { .speaker-card.keynote { grid-column: span 1; flex-direction: column; } }
     .speaker-img-wrap { position: relative; overflow: hidden; flex-shrink: 0; }
-    .speaker-card:not(.keynote) .speaker-img-wrap { aspect-ratio: 4/3; }
-    .speaker-card.keynote .speaker-img-wrap { width: 220px; }
-    .speaker-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; filter: grayscale(20%); }
+    .speaker-card:not(.keynote) .speaker-img-wrap { aspect-ratio: 1/1; border-radius: 50%; margin: 1.2rem auto 0; width: 65%; overflow: hidden; }
+    .speaker-card.keynote .speaker-img-wrap { width: 290px; aspect-ratio: 3/4; align-self: stretch; flex-shrink: 0; }
+    .speaker-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.5s ease; filter: grayscale(20%); }
     .speaker-card:hover .speaker-img-wrap img { transform: scale(1.05); filter: grayscale(0%); }
     .speaker-body { padding: 1.4rem 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .speaker-top { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
@@ -229,6 +229,46 @@
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes pulseDown { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* ── POSTER PRESENTERS ── */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .poster-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(230,204,165,0.1);
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .poster-card:hover {
+      border-color: rgba(230,204,165,0.3);
+      background: rgba(255,255,255,0.055);
+    }
+    .poster-title {
+      font-family: 'Rosario', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+    }
+    .poster-presenter {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+    }
+    .poster-school {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+      opacity: 0.75;
+    }
   </style>
 </head>
 <body>
@@ -340,16 +380,19 @@
           <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
         </div>
       </div>
-      <div class="speaker-card keynote" onclick="openModal(4)">
-        <div class="speaker-img-wrap"><img src="../images/people_imgs/Gul-Dolen-portrait.jpg" alt="Keynote Speaker"></div>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+    <div class="speaker-card keynote" onclick="openModal(4)">
+      <div class="speaker-img-wrap"><img src="../images/people_imgs/Gul-Dolen-portrait.jpg" alt="Keynote Speaker"></div>
         <div class="speaker-body">
           <div class="speaker-top"><span class="speaker-name">Gül Dölen, MD/PhD</span><span class="speaker-role">Professor, UC Berkeley</span><span class="pill">Keynote Speaker</span></div>
           <p class="speaker-bio-text">Dr. Gül Dölen is a Professor and the Bob & Renee Parsons Endowed Chair in the Department of Neuroscience, and Department of Psychology, the Berkeley Center for the Science of Psychedelics and the Helen Wills Neuroscience Institute at the University of California, Berkeley. Dr Dölen also maintains an Adjunct Professorship in Neuroscience and Neurology at the Johns Hopkins University, School of Medicine. Dr. Dölen is the recipient of several prestigious awards including: the Joukowsky Family Foundation Outstanding Dissertation Award, the Conquer Fragile X Rising Star Award, the Angus MacDonald Award for Excellence in Undergraduate Teaching, the Society for Social Neuroscience Early Career Award, the Searle Scholars Award, and the Johns Hopkins University President’s Frontier Award.</p>
           <button class="expand-btn" onclick="event.stopPropagation();toggleExpand(this)">Read more ↓</button>
         </div>
-      </div>
     </div>
-  </div>
+  </div> 
+</div>
 
   <!-- MODAL -->
   <div class="modal-backdrop" id="modal" onclick="closeModal(event)">
@@ -364,6 +407,84 @@
         </div>
       </div>
       <div class="modal-body" id="modal-bio"></div>
+    </div>
+  </div>
+
+
+  <hr class="divider">
+
+  <!-- POSTER PRESENTERS -->
+  <div class="section reveal">
+    <p class="section-label">Research</p>
+    <h2 class="section-title">Poster Presenters</h2>
+    <div class="poster-grid">
+
+      <div class="poster-card">
+        <p class="poster-title">Preparing a Learner for an Independent Future</p>
+        <p class="poster-presenter">Divya Sundar</p>
+        <p class="poster-school">UC Berkeley</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Acquisition Asymmetries in the Production of WH-Questions: Insights from K'iche'</p>
+        <p class="poster-presenter">Oliver Lee</p>
+        <p class="poster-school">Stanford University</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Disentangling the Effects of Age and Alzheimer's Disease Pathology on Longitudinal Gray Matter Atrophy in Cognitively Normal Older Adults: A Voxel-Wise Approach</p>
+        <p class="poster-presenter">Miraal Haque</p>
+        <p class="poster-school">UC Berkeley</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Map-based Navigation: Individual Differences in Perspective Taking and Path Integration</p>
+        <p class="poster-presenter">Charley Jetter</p>
+        <p class="poster-school">UC Santa Barbara</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Ascribe New Dimensions to Brain Visualization and Interactive VR</p>
+        <p class="poster-presenter">Guilherme Melo dos Santos</p>
+        <p class="poster-school">Universidade Federal do Estado de Sao Paulo & Dani Ushizima, UC Berkeley, UC San Francisco</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Hidden Markov Models Reveal Attractive and Repulsive Perceptual Modes during an Ensemble Judgment Task</p>
+        <p class="poster-presenter">Katrina Wolters</p>
+        <p class="poster-school">UC Berkeley</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Follow-up Study on the Impact of Radiofrequency Thermocoagulation on Brain Connectivity in Drug Resistant Epilepsy</p>
+        <p class="poster-presenter">Rishika Isanaka</p>
+        <p class="poster-school">Maastricht University</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Generics Revisited: Analyzing Generalizations in Children's Books and Caregivers' Speech</p>
+        <p class="poster-presenter">Sunny Yu</p>
+        <p class="poster-school">Stanford University</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Cultural Differences in Parental Sensitivity: A Comparison of Chinese American and Mexican American from Low-Income Immigrant Families</p>
+        <p class="poster-presenter">Claudia Campos-Hernandez</p>
+        <p class="poster-school">UC Berkeley</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Fast Moving Targets are Detected More Efficiently than Slow Moving Targets in Visual Search</p>
+        <p class="poster-presenter">Sarah Hackenkamp/p>
+        <p class="poster-school">California State University, East Bay</p>
+      </div>
+
+      <div class="poster-card">
+        <p class="poster-title">Shaping Spatial Cognition: The Impact of Co-speech Gestures on Listener's Spatial Frames of Reference</p>
+        <p class="poster-presenter">Shreyas Shenoy, Zoya Chaudhry, Arthur Sipor, Sadove Nasrat, DeAnna Nguyen</p>
+        <p class="poster-school">UC Merced</p>
+      </div>
+
     </div>
   </div>
 
@@ -475,6 +596,12 @@
       card.classList.toggle('expanded');
       btn.textContent = card.classList.contains('expanded') ? 'Show less ↑' : 'Read more ↓';
     }
+
+    // Auto-expand keynote card on load
+  document.querySelectorAll('.speaker-card.keynote').forEach(card => {
+  card.classList.add('expanded');
+  card.querySelector('.expand-btn').textContent = 'Show less ↑';
+});
   </script>
 </body>
 </html>
