@@ -2781,140 +2781,122 @@ width: 50%;
   --speakers-pill-border: #b892ff;
 }
 
-/* page background wrapper (remove if your site already sets background) */
-.speakers-page{
-  background: var(--speakers-bg);
-  color: var(--speakers-text);
-}
+/* ===== Involvement Page ===== */
 
-/* content width + spacing */
-.speakers-wrap{
-  max-width: 980px;
+.involvement-modern {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 36px 18px 60px;
+  padding: 3rem 1.5rem 5rem;
 }
 
-.speakers-title{
+.section-heading {
   text-align: center;
-  letter-spacing: .18em;
-  font-weight: 700;
-  font-size: 20px;
-  margin: 0 0 18px;
-  text-transform: uppercase;
+  color: #8A95FB;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
 }
 
-.speakers-stack{
+.membership-grid-modern {
   display: grid;
-  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
-/* card */
-.speaker-card{
-  background: var(--speakers-card);
-  border: 2px solid var(--speakers-border);
-  border-radius: 14px;
-  padding: 18px 22px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset;
+@media (max-width: 768px) {
+  .membership-grid-modern {
+    grid-template-columns: 1fr;
+  }
 }
 
-.speaker-row{
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
+.member-card-modern {
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.speaker-avatar{
-  width: 92px;
-  height: 92px;
-  border-radius: 999px;
-  overflow: hidden;
-  flex: 0 0 auto;
-  background: rgba(255,255,255,.08);
-  border: 2px solid rgba(201,167,255,.25);
+.member-card-modern:hover {
+  transform: translateY(-6px);
 }
 
-.speaker-avatar img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.member-card-modern h3 {
+  color: #8A95FB;
+  margin-bottom: 0.5rem;
 }
 
-.speaker-meta{
-  flex: 1 1 auto;
-  min-width: 0;
-  padding-top: 4px;
-}
-
-.speaker-nameLine{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-  font-weight: 650;
-  color: var(--speakers-text);
-}
-
-.speaker-name{
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-.speaker-sep{
-  opacity: .65;
-  font-weight: 500;
-}
-
-.speaker-role{
-  font-size: 14px;
+.member-card-modern .subtitle {
   font-weight: 600;
-  opacity: .9;
-  white-space: nowrap;
+  margin-bottom: 1rem;
+  opacity: 0.85;
 }
 
-.speaker-bio{
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.55;
-  color: var(--speakers-muted);
-  max-width: 860px;
+.member-card-modern ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
 }
 
-/* keynote variant */
-.speaker-card--keynote{
-  background: var(--speakers-card-keynote);
-  color: var(--speakers-ink);
-  border-color: #d8bfff;
+.member-card-modern ul li {
+  margin-bottom: 0.6rem;
+  opacity: 0.85;
 }
 
-.speaker-card--keynote .speaker-nameLine{
-  color: rgba(27,11,51,.88);
+.member-card-modern ul li::before {
+  content: "• ";
+  color: #8A95FB;
 }
 
-.speaker-card--keynote .speaker-bio{
-  color: rgba(27,11,51,.75);
+.btn-modern {
+  display: inline-block;
+  background: #8A95FB;
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-.speaker-card--keynote .speaker-avatar{
-  border-color: rgba(27,11,51,.08);
+.btn-modern:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
 }
 
-.speaker-pill{
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 650;
-  background: var(--speakers-pill-bg);
-  border: 1px solid var(--speakers-pill-border);
-  color: rgba(27,11,51,.9);
+.committee-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-/* responsive */
-@media (max-width: 680px){
-  .speaker-row{ align-items: center; }
-  .speaker-avatar{ width: 74px; height: 74px; }
-  .speaker-bio{ font-size: 12px; }
+@media (max-width: 900px) {
+  .committee-grid-modern {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .committee-grid-modern {
+    grid-template-columns: 1fr;
+  }
+}
+
+.committee-card {
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: 14px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.committee-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+.committee-card h3 {
+  color: #8A95FB;
+  margin-bottom: 0.5rem;
 }
