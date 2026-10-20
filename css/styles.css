@@ -2429,8 +2429,9 @@ width: 50%;
 
 .people-row4 {
   /*background-color: #F3F9FF;*/
-    padding-top: 2%;
+  padding-top: 2%;
   padding-bottom: 3%;
+  gap: 2%;
 }
 
 .people-row4 p {
